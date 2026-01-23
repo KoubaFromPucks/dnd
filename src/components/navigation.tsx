@@ -1,10 +1,9 @@
 'use client';
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Menu } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 const links = [
 	{ href: '/new-game', label: 'New Game' },
@@ -14,7 +13,6 @@ const links = [
 export const Navigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
-	const router = useRouter();
 
 	return (
 		<header className="sticky top-0 z-50 flex items-center justify-between bg-gray-100 p-2 px-8">
@@ -22,14 +20,13 @@ export const Navigation = () => {
 				D&D MASTER
 			</Link>
 			<nav className="hidden gap-4 font-medium lg:flex">
-				{links.map((link) => (
+				{links.map(link => (
 					<NavLink
 						key={link.href}
 						href={link.href}
 						label={link.label}
 						pathname={pathname}
-						onClick={() => {}
-					}
+						onClick={() => {}}
 					/>
 				))}
 			</nav>
@@ -37,7 +34,7 @@ export const Navigation = () => {
 			{isOpen && (
 				<div className="absolute top-full left-0 w-full border-t bg-gray-100 lg:hidden">
 					<nav className="flex flex-col items-center gap-2 p-4 font-medium">
-						{links.map((link) => (
+						{links.map(link => (
 							<NavLink
 								key={link.href}
 								href={link.href}
@@ -66,18 +63,16 @@ export const Navigation = () => {
 };
 
 const linkStyle = (href: string, pathname: string) =>
-		`rounded-xl px-4 py-2 hover:bg-gray-300 ${
-			pathname === href
-				? 'underline underline-offset-8 decoration-gray-400'
-				: ''
-		}`;
+	`rounded-xl px-4 py-2 hover:bg-gray-300 ${
+		pathname === href ? 'underline underline-offset-8 decoration-gray-400' : ''
+	}`;
 
 type NavLinkProps = {
 	href: string;
 	label: string;
 	pathname: string;
 	onClick: () => void;
-}
+};
 
 const NavLink = ({ href, label, pathname, onClick }: NavLinkProps) => {
 	return (

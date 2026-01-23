@@ -12,7 +12,7 @@ const poppins = Poppins({ subsets: ['latin'], weight: ['400'] });
 
 export const metadata: Metadata = {
 	title: 'D&D Master',
-	description: 'Dungeon Master assistant powered by AI',
+	description: 'Dungeon Master assistant powered by AI'
 };
 
 const RootLayout = ({
