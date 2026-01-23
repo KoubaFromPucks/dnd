@@ -20,10 +20,12 @@ const RootLayout = ({
 }: Readonly<{
 	children: React.ReactNode;
 }>) => (
-	<html lang="en" className='h-full'>
-		<body className={`flex h-full flex-col overflow-hidden ${poppins.className}`}>
+	<html lang="en" className="h-full">
+		<body
+			className={`flex h-full flex-col overflow-hidden ${poppins.className}`}
+		>
 			<Navigation />
-			<main className="flex-1 relative overflow-hidden bg-slate-950">
+			<main className="relative flex-1 overflow-hidden bg-slate-950">
 				<Providers>{children}</Providers>
 				<Toaster richColors position="bottom-right" />
 			</main>

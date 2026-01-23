@@ -1,60 +1,64 @@
-import React, {useState} from "react";{}
-import { MessageSquare, Shield, Heart, Zap, Backpack, Dices } from 'lucide-react';
-import { Button } from "../basic-components/button";
+import React, { useState } from 'react';
+import { Zap } from 'lucide-react';
+import { Button } from '../basic-components/button';
 
 export const Chat = () => {
-    const [input, setInput] = useState('');
-    const [messages, setMessages] = useState([
-    { role: 'dm', text: 'Vstupujete do temné jeskyně. Vzduch je cítit vlhkostí a hnilobou. Co uděláte?' }
-  ]);  
-    const handleSendMessage = () => {
-    if (!input.trim()) return;
-        setMessages([...messages, { role: 'user', text: input }]);
-        // Zde by následovalo volání API Gemini...
-        setInput('');
-  };
+	const [input, setInput] = useState('');
+	const [messages, setMessages] = useState([
+		{
+			role: 'dm',
+			text: 'Vstupujete do temné jeskyně. Vzduch je cítit vlhkostí a hnilobou. Co uděláte?'
+		}
+	]);
+	const handleSendMessage = () => {
+		if (!input.trim()) return;
+		setMessages([...messages, { role: 'user', text: input }]);
+		// Zde by následovalo volání API Gemini...
+		setInput('');
+	};
 
-    return (
-    <div className="flex-1 flex flex-col relative h-full w-full">
-        <header className="p-4 border-b border-slate-800 bg-slate-900/50 flex justify-between items-center">
-          <h1 className="flex items-center gap-2 font-serif text-amber-600 text-xl tracking-widest uppercase">
-            <Zap size={20} /> Dungeon Master AI
-          </h1>
-          <div className="text-slate-500 text-sm">Lokace: Zapomenuté doly</div>
-        </header>
+	return (
+		<div className="relative flex h-full w-full flex-1 flex-col">
+			<header className="flex items-center justify-between border-b border-slate-800 bg-slate-900/50 p-4">
+				<h1 className="flex items-center gap-2 font-serif text-xl tracking-widest text-amber-600 uppercase">
+					<Zap size={20} /> Dungeon Master AI
+				</h1>
+				<div className="text-sm text-slate-500">Lokace: Zapomenuté doly</div>
+			</header>
 
-        <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]">
-          {messages.map((m, i) => (
-            <div key={i} className={`flex ${m.role === 'dm' ? 'justify-start' : 'justify-end'}`}>
-              <div className={`max-w-[80%] [word-break:break-word] p-4 rounded-2xl shadow-xl wrap-break-words ${
-                m.role === 'dm' 
-                ? 'bg-slate-800 border-l-4 border-amber-600 text-slate-200' 
-                : 'bg-amber-700 text-white rounded-tr-none'
-              }`}>
-                <p className="leading-relaxed">{m.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+			<div className="flex-1 space-y-6 overflow-y-auto bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] p-6">
+				{messages.map((m, i) => (
+					<div
+						key={i}
+						className={`flex ${m.role === 'dm' ? 'justify-start' : 'justify-end'}`}
+					>
+						<div
+							className={`wrap-break-words max-w-[80%] rounded-2xl p-4 [word-break:break-word] shadow-xl ${
+								m.role === 'dm'
+									? 'border-l-4 border-amber-600 bg-slate-800 text-slate-200'
+									: 'rounded-tr-none bg-amber-700 text-white'
+							}`}
+						>
+							<p className="leading-relaxed">{m.text}</p>
+						</div>
+					</div>
+				))}
+			</div>
 
-        <footer className="p-6 bg-slate-900 border-t border-slate-800">
-          <div className="flex gap-4 max-w-4xl mx-auto items-center">
-            <input 
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder="Napište svou akci (např. Prohledám truhlu...)"
-              className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-600 transition-colors"
-            />
-            <Button 
-              onClick={handleSendMessage}
-              variant="default"
-              size="default"
-            >
-              ODESLAT
-            </Button>
-          </div>
-        </footer>
-      </div>
-    );
+			<footer className="border-t border-slate-800 bg-slate-900 p-6">
+				<div className="mx-auto flex max-w-4xl items-center gap-4">
+					<input
+						value={input}
+						onChange={e => setInput(e.target.value)}
+						onKeyDown={e => e.key === 'Enter' && handleSendMessage()}
+						placeholder="Napište svou akci (např. Prohledám truhlu...)"
+						className="flex-1 rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 transition-colors focus:border-amber-600 focus:outline-none"
+					/>
+					<Button onClick={handleSendMessage} variant="default" size="default">
+						ODESLAT
+					</Button>
+				</div>
+			</footer>
+		</div>
+	);
 };
