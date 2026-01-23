@@ -4,6 +4,7 @@ import { Race } from './race';
 import { CharacterClass } from './character-class';
 
 export type Character = {
+    pictureUrl?: string;
     characterName: string;
     playerName: string;
     race: Race;
