@@ -24,12 +24,16 @@ export const CharacterPanel = () => {
 
         <div className="grid grid-cols-2 gap-2 text-xs">
           {Object.entries({strength: 12, dexterity: 14, constitution: 16, intelligence: 10, wisdom: 8, charisma: 13}).map(([stat, val]) => (
-            <div key={stat} className="bg-slate-800 p-2 rounded border border-slate-700 text-center">
-              <div className="uppercase text-slate-500">{stat.slice(0, 3)}</div>
-              <div className="text-lg font-bold">{val}</div>
-            </div>
+            <StatBlock key={stat} stat={stat.slice(0, 3)} value={val} />
           ))}
         </div>
       </aside>
     );
 };
+
+const StatBlock = ({ stat, value }: { stat: string; value: number }) => (
+    <div className="bg-slate-800 p-2 rounded border border-slate-700 text-center">
+      <div className="uppercase text-slate-500">{stat}</div>
+      <div className="text-lg font-bold">{value}</div>
+    </div>
+);

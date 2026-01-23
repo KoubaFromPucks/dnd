@@ -8,9 +8,7 @@ export const InventoryPanel = () => (
           </h3>
           <div className="space-y-2">
             {['Dlouhý meč', 'Štít', 'Lektvar léčení'].map(item => (
-              <div key={item} className="p-2 bg-slate-800 rounded border border-slate-700 text-sm flex justify-between hover:border-amber-900 cursor-pointer">
-                {item} <span className="text-slate-600">1x</span>
-              </div>
+                <InventoryItem key={item} name={item} quantity={1} />
             ))}
           </div>
         </section>
@@ -28,4 +26,10 @@ export const InventoryPanel = () => (
           </div>
         </section>
       </aside>
+);
+
+const InventoryItem = ({ name, quantity }: { name: string; quantity: number }) => (
+    <div className="p-2 bg-slate-800 rounded border border-slate-700 text-sm flex justify-between hover:border-amber-900 cursor-pointer">
+      {name} <span className="text-slate-600">{quantity}x</span>
+    </div>
 );
