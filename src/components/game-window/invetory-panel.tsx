@@ -9,8 +9,8 @@ export const InventoryPanel = ({
 }: {
 	character: Character | null;
 }) => (
-	<aside className="flex h-full w-72 flex-col gap-6 overflow-y-auto border-l border-slate-800 bg-slate-900 p-6">
-		<section>
+	<aside className="flex h-full w-72 flex-col gap-6 border-l border-slate-800 bg-slate-900 p-6">
+		<section className="overflow-y-auto">
 			<PanelHeader title="Inventář" icon={<Backpack size={16} />} />
 
 			<div className="space-y-2">
