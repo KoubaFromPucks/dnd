@@ -2,6 +2,7 @@ import React from 'react';
 import { Backpack, Dices } from 'lucide-react';
 import { Character } from '@/schema/character';
 import { PanelHeader } from './panel-header';
+import { DiceThrows } from './dice-throws';
 
 export const InventoryPanel = ({
 	character
@@ -29,16 +30,8 @@ export const InventoryPanel = ({
 				icon={<Dices size={16} />}
 				hidePlusButton
 			/>
-			<div className="grid grid-cols-2 gap-2">
-				{[20, 12, 10, 8, 6, 4].map(sides => (
-					<button
-						key={sides}
-						className="rounded border border-slate-700 bg-slate-950 p-2 font-bold text-amber-500 transition-colors hover:bg-slate-800"
-					>
-						d{sides}
-					</button>
-				))}
-			</div>
+
+			<DiceThrows />
 		</section>
 	</aside>
 );
