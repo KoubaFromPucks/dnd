@@ -4,7 +4,15 @@ import { Button } from '../basic-components/button';
 import { CharacterStats } from './character-stats';
 import { Character } from '@/schema/character';
 
-export const CharacterPanel = ({ characters }: { characters: Character[] }) => {
+type characterPanelProps = {
+	characters: Character[];
+	onSelectCharacter: (character: Character | null) => void;
+};
+
+export const CharacterPanel = ({
+	characters,
+	onSelectCharacter
+}: characterPanelProps) => {
 	const [expandedId, setExpandedId] = useState<string | null>(
 		characters[0]?.characterName
 	);
@@ -27,11 +35,12 @@ export const CharacterPanel = ({ characters }: { characters: Character[] }) => {
 			{characters.map(char => (
 				<div key={char.characterName} className="flex flex-col">
 					<button
-						onClick={() =>
-							setExpandedId(
-								expandedId === char.characterName ? null : char.characterName
-							)
-						}
+						onClick={() => {
+							const newExpandedId =
+								expandedId === char.characterName ? null : char.characterName;
+							setExpandedId(newExpandedId);
+							onSelectCharacter(newExpandedId ? char : null);
+						}}
 						className={`flex items-center justify-between rounded-t-xl border border-slate-800 p-3 transition-colors ${
 							expandedId === char.characterName
 								? 'bg-slate-800 text-amber-500'

@@ -1,15 +1,24 @@
 import React from 'react';
 import { Backpack, Dices } from 'lucide-react';
+import { Character } from '@/schema/character';
 
-export const InventoryPanel = () => (
+export const InventoryPanel = ({
+	character
+}: {
+	character: Character | null;
+}) => (
 	<aside className="flex h-full w-72 flex-col gap-6 overflow-y-auto border-l border-slate-800 bg-slate-900 p-6">
 		<section>
 			<h3 className="mb-4 flex items-center gap-2 text-xs font-bold tracking-widest text-slate-500 uppercase">
 				<Backpack size={16} /> Inventář
 			</h3>
 			<div className="space-y-2">
-				{['Dlouhý meč', 'Štít', 'Lektvar léčení'].map(item => (
-					<InventoryItem key={item} name={item} quantity={1} />
+				{character?.inventory.map(item => (
+					<InventoryItem
+						key={item.name}
+						name={item.name}
+						quantity={item.quantity}
+					/>
 				))}
 			</div>
 		</section>

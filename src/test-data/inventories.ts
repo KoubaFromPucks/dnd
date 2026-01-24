@@ -1,6 +1,6 @@
-import { Item } from "@/schema/item";
+import { Item } from '@/schema/item';
 
-export const ragnarInventory : Item[] = [
+export const ragnarInventory: Item[] = [
 	{
 		name: 'Válečná sekera',
 		itemType: 'weapon',
@@ -119,7 +119,8 @@ export const zephyrInventory: Item[] = [
 		itemType: 'weapon',
 		useType: 'equippable',
 		range: 'melee',
-		description: 'Hůl z jasanového dřeva sloužící jako zbraň i magické ohnisko.',
+		description:
+			'Hůl z jasanového dřeva sloužící jako zbraň i magické ohnisko.',
 		weight: 4,
 		equipped: true,
 		cost: 5,

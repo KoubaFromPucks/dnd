@@ -1,5 +1,9 @@
 import { Character } from '@/schema/character';
-import { zephyrInventory, ragnarInventory, elaraInventory } from './inventories';
+import {
+	zephyrInventory,
+	ragnarInventory,
+	elaraInventory
+} from './inventories';
 
 export const defaultCharactes: Character[] = [
 	{
