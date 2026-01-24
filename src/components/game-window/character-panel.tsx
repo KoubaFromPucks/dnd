@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronRight, Plus, Users } from 'lucide-react';
-import { Button } from '../basic-components/button';
+import { ChevronDown, ChevronRight, Users } from 'lucide-react';
 import { CharacterStats } from './character-stats';
 import { Character } from '@/schema/character';
+import { PanelHeader } from './panel-header';
 
 type characterPanelProps = {
 	characters: Character[];
@@ -19,18 +19,7 @@ export const CharacterPanel = ({
 
 	return (
 		<aside className="flex h-full w-72 flex-col gap-3 overflow-y-auto border-r border-slate-800 bg-slate-900 p-6">
-			<div className="flex items-center justify-between border-b border-slate-800 bg-slate-900/50 p-4">
-				<h3 className="flex items-center gap-2 text-xs font-bold tracking-widest text-slate-500 uppercase">
-					<Users size={16} /> Družina
-				</h3>
-				<Button
-					variant="ghost"
-					size="sm"
-					className="h-8 w-8 p-0 hover:text-amber-500"
-				>
-					<Plus size={18} />
-				</Button>
-			</div>
+			<PanelHeader title="Družina" icon={<Users size={16} />} />
 
 			{characters.map(char => (
 				<div key={char.characterName} className="flex flex-col">

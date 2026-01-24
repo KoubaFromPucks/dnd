@@ -1,6 +1,7 @@
 import React from 'react';
 import { Backpack, Dices } from 'lucide-react';
 import { Character } from '@/schema/character';
+import { PanelHeader } from './panel-header';
 
 export const InventoryPanel = ({
 	character
@@ -9,9 +10,8 @@ export const InventoryPanel = ({
 }) => (
 	<aside className="flex h-full w-72 flex-col gap-6 overflow-y-auto border-l border-slate-800 bg-slate-900 p-6">
 		<section>
-			<h3 className="mb-4 flex items-center gap-2 text-xs font-bold tracking-widest text-slate-500 uppercase">
-				<Backpack size={16} /> Inventář
-			</h3>
+			<PanelHeader title="Inventář" icon={<Backpack size={16} />} />
+
 			<div className="space-y-2">
 				{character?.inventory.map(item => (
 					<InventoryItem
@@ -24,9 +24,11 @@ export const InventoryPanel = ({
 		</section>
 
 		<section className="mt-auto">
-			<h3 className="mb-4 flex items-center gap-2 text-xs font-bold tracking-widest text-slate-500 uppercase">
-				<Dices size={16} /> Rychlé Hody
-			</h3>
+			<PanelHeader
+				title="Rychlé Hody"
+				icon={<Dices size={16} />}
+				hidePlusButton
+			/>
 			<div className="grid grid-cols-2 gap-2">
 				{[20, 12, 10, 8, 6, 4].map(sides => (
 					<button
