@@ -2,6 +2,7 @@ import React from 'react';
 import { Shield, Heart } from 'lucide-react';
 import { Portrait } from '../portrait';
 import { Character } from '@/schema/character';
+import { getAC } from '@/utils/character-utils';
 
 type CharacterStatsProps = {
 	character?: Character;
@@ -30,8 +31,7 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 				</div>
 				<div className="flex items-center justify-between rounded-lg border border-blue-900/50 bg-slate-800 p-3">
 					<Shield className="text-blue-400" size={20} />
-					<span className="font-bold text-blue-200">AC 15</span>
-					{/* TODO AC */}
+					<span className="font-bold text-blue-200">AC {getAC(character)}</span>
 				</div>
 			</div>
 

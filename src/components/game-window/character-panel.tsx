@@ -13,9 +13,7 @@ export const CharacterPanel = ({
 	characters,
 	onSelectCharacter
 }: characterPanelProps) => {
-	const [expandedId, setExpandedId] = useState<string | null>(
-		characters[0]?.characterName
-	);
+	const [expandedId, setExpandedId] = useState<string | null>(null);
 
 	return (
 		<aside className="flex h-full w-72 flex-col gap-3 overflow-y-auto border-r border-slate-800 bg-slate-900 p-6">

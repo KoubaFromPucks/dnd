@@ -19,7 +19,7 @@ export const ragnarInventory: Item[] = [
 	},
 	{
 		name: 'Kroužková zbroj',
-		itemType: 'armor',
+		itemType: 'heavy armor',
 		useType: 'equippable',
 		description: 'Těžká zbroj z propojených ocelových kroužků.',
 		weight: 55,
@@ -30,11 +30,11 @@ export const ragnarInventory: Item[] = [
 		activeEffectDescription: '',
 		effectDuration: 0,
 		rarity: 'common',
-		armorClassBonus: 6 // Celkové AC 16 (Base 10 + 6)
+		armorClassBonus: 6
 	},
 	{
 		name: 'Velký štít',
-		itemType: 'armor',
+		itemType: 'shield',
 		useType: 'equippable',
 		description: 'Dubový štít okovaný železem.',
 		weight: 6,
@@ -84,7 +84,7 @@ export const elaraInventory: Item[] = [
 	},
 	{
 		name: 'Kožená zbroj',
-		itemType: 'armor',
+		itemType: 'medium armor',
 		useType: 'equippable',
 		description: 'Tvrzená kůže, která neomezuje v pohybu.',
 		weight: 10,
