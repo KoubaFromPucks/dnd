@@ -2,14 +2,20 @@ import { Character } from '@/schema/character';
 
 export const carryWeightMultiplier = 15;
 
-export const getMaximalCarryWeight = (strength: number): number => {
-	return strength * carryWeightMultiplier;
+export const getMaximalCarryWeight = (character?: Character): number => {
+	if (!character) {
+		return 0;
+	}
+
+	return character.stats.strength * carryWeightMultiplier;
 };
 
-export const getCurrentCarryWeight = (
-	inventory: { weight: number; quantity: number }[]
-): number => {
-	return inventory.reduce(
+export const getCurrentCarryWeight = (character?: Character): number => {
+	if (!character) {
+		return 0;
+	}
+
+	return character.inventory.reduce(
 		(total, item) => total + item.weight * item.quantity,
 		0
 	);

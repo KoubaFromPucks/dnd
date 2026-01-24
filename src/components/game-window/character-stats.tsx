@@ -1,8 +1,21 @@
-import React from 'react';
-import { Shield, Heart } from 'lucide-react';
+import React, { ReactNode } from 'react';
+import { Shield, Heart, Coins, Weight } from 'lucide-react';
 import { Portrait } from '../portrait';
 import { Character } from '@/schema/character';
-import { getAC } from '@/utils/character-utils';
+import {
+	getAC,
+	getCurrentCarryWeight,
+	getMaximalCarryWeight
+} from '@/utils/character-utils';
+
+type StateVariant = 'red' | 'blue' | 'yellow' | 'gray';
+
+const variantStyles: Record<StateVariant, string> = {
+	red: 'border-red-900/50 text-red-200',
+	blue: 'border-blue-900/50 text-blue-200',
+	yellow: 'border-yellow-900/50 text-yellow-200',
+	gray: 'border-gray-900/50 text-gray-200'
+};
 
 type CharacterStatsProps = {
 	character?: Character;
@@ -23,16 +36,30 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 			</div>
 
 			<div className="space-y-4">
-				<div className="flex items-center justify-between rounded-lg border border-red-900/50 bg-slate-800 p-3">
-					<Heart className="text-red-500" size={20} />
-					<span className="font-bold text-red-200">
-						{character?.hp.current} / {character?.hp.max} HP
-					</span>
-				</div>
-				<div className="flex items-center justify-between rounded-lg border border-blue-900/50 bg-slate-800 p-3">
-					<Shield className="text-blue-400" size={20} />
-					<span className="font-bold text-blue-200">AC {getAC(character)}</span>
-				</div>
+				<StateLabel
+					label="HP"
+					icon={<Heart className="text-red-500" size={20} />}
+					value={`${character?.hp.current} / ${character?.hp.max}`}
+					variant="red"
+				/>
+				<StateLabel
+					label="AC"
+					icon={<Shield className="text-blue-400" size={20} />}
+					value={getAC(character)}
+					variant="blue"
+				/>
+				<StateLabel
+					label="Gold"
+					icon={<Coins className="text-yellow-400" size={20} />}
+					value={character?.currentGold || 0}
+					variant="yellow"
+				/>
+				<StateLabel
+					label="Weight"
+					icon={<Weight className="text-gray-400" size={20} />}
+					value={`${getCurrentCarryWeight(character)} / ${getMaximalCarryWeight(character)}`}
+					variant="gray"
+				/>
 			</div>
 
 			<div className="grid grid-cols-2 gap-2 text-xs">
@@ -55,5 +82,26 @@ const StatBlock = ({ stat, value }: { stat: string; value: number }) => (
 	<div className="rounded border border-slate-700 bg-slate-800 p-2 text-center">
 		<div className="text-slate-500 uppercase">{stat}</div>
 		<div className="text-lg font-bold">{value}</div>
+	</div>
+);
+
+const StateLabel = ({
+	label,
+	icon,
+	value,
+	variant
+}: {
+	label: string;
+	icon?: ReactNode;
+	value: string | number;
+	variant: StateVariant;
+}) => (
+	<div
+		className={`flex items-center justify-between rounded-lg border bg-slate-800 p-3 ${variantStyles[variant]}`}
+	>
+		{icon}
+		<span className={`font-bold ${variantStyles[variant].split(' ')[1]}`}>
+			{value} {label}
+		</span>
 	</div>
 );
