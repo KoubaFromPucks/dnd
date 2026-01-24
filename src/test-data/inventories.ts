@@ -3,9 +3,8 @@ import { Item } from '@/schema/item';
 export const ragnarInventory: Item[] = [
 	{
 		name: 'Válečná sekera',
-		itemType: 'weapon',
+		itemType: 'melee weapon',
 		useType: 'equippable',
-		range: 'melee',
 		description: 'Masivní trpasličí sekera ukovaná v hlubinách hor.',
 		weight: 4,
 		equipped: true,
@@ -52,9 +51,8 @@ export const ragnarInventory: Item[] = [
 export const elaraInventory: Item[] = [
 	{
 		name: 'Kord (Rapier)',
-		itemType: 'weapon',
+		itemType: 'melee weapon',
 		useType: 'equippable',
-		range: 'melee',
 		description: 'Elegantní elfská čepel pro přesné výpady.',
 		weight: 2,
 		equipped: true,
@@ -68,9 +66,8 @@ export const elaraInventory: Item[] = [
 	},
 	{
 		name: 'Krátký luk',
-		itemType: 'weapon',
+		itemType: 'ranged weapon',
 		useType: 'equippable',
-		range: 'ranged',
 		description: 'Lehký luk z pružného dřeva.',
 		weight: 2,
 		equipped: false,
@@ -116,9 +113,8 @@ export const elaraInventory: Item[] = [
 export const zephyrInventory: Item[] = [
 	{
 		name: 'Magická hůl',
-		itemType: 'weapon',
+		itemType: 'ranged weapon',
 		useType: 'equippable',
-		range: 'melee',
 		description:
 			'Hůl z jasanového dřeva sloužící jako zbraň i magické ohnisko.',
 		weight: 4,

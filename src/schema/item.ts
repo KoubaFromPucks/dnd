@@ -4,7 +4,8 @@ import { ThrowParams } from './throw-params';
 export type Item = {
 	name: string;
 	itemType:
-		| 'weapon'
+		| 'melee weapon'
+		| 'ranged weapon'
 		| 'light armor'
 		| 'medium armor'
 		| 'heavy armor'
@@ -12,7 +13,6 @@ export type Item = {
 		| 'other'
 		| 'shield';
 	useType: 'equippable' | 'consumable';
-	range?: 'melee' | 'ranged';
 
 	description: string;
 	weight: number;
