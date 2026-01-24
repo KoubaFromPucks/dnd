@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Shield, Heart, Coins, Weight } from 'lucide-react';
+import { Shield, Heart, Coins, Weight, Edit2 } from 'lucide-react';
 import { Portrait } from '../portrait';
 import { Character } from '@/schema/character';
 import {
@@ -29,6 +29,7 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 				<h2 className="text-xl font-bold text-amber-500">
 					{character?.characterName}
 				</h2>
+
 				<p className="text-sm text-slate-400 italic">
 					{character?.race.name} {character?.class.name} (Lvl {character?.level}
 					)
@@ -74,6 +75,9 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 					<StatBlock key={stat} stat={stat.slice(0, 3)} value={val} />
 				))}
 			</div>
+			<button className="mx-auto flex items-center justify-center gap-2 text-center text-slate-500 hover:text-amber-500">
+				<Edit2 size={16} /> Edit
+			</button>
 		</div>
 	);
 };

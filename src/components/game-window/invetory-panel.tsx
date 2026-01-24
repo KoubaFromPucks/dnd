@@ -12,7 +12,6 @@ const uneqipAllItemsWithSameSuffix = (
 	itemSuffix: string
 ) => {
 	character.inventory.forEach(i => {
-		console.log(i);
 		if (i.itemType.endsWith(itemSuffix) && i.equipped) {
 			i.equipped = false;
 		}
