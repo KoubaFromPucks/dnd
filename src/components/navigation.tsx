@@ -7,8 +7,9 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/cn'; // Předpokládám tvou pomocnou funkci
 
 const links = [
-	{ href: '/new-game', label: 'Nová Hra' },
-	{ href: '/other', label: 'Archiv' }
+	{ href: '/', label: 'Nová Hra' },
+	{ href: '/', label: 'Uložit' },
+	{ href: '/', label: 'Načíst' }
 ];
 
 export const Navigation = () => {
@@ -23,7 +24,7 @@ export const Navigation = () => {
 			<nav className="hidden gap-2 font-medium lg:flex">
 				{links.map(link => (
 					<NavLink
-						key={link.href}
+						key={link.label}
 						href={link.href}
 						label={link.label}
 						pathname={pathname}
@@ -38,7 +39,7 @@ export const Navigation = () => {
 					<nav className="flex flex-col items-center gap-4 p-6 font-medium">
 						{links.map(link => (
 							<NavLink
-								key={link.href}
+								key={link.label}
 								href={link.href}
 								label={link.label}
 								pathname={pathname}
