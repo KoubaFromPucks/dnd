@@ -1,4 +1,5 @@
 import { Character } from '@/schema/character';
+import { zephyrInventory, ragnarInventory, elaraInventory } from './inventories';
 
 export const defaultCharactes: Character[] = [
 	{
@@ -31,13 +32,13 @@ export const defaultCharactes: Character[] = [
 		stats: {
 			strength: 15,
 			dexterity: 13,
-			constitution: 16, // 14 základ + 2 rasový bonus
+			constitution: 16,
 			intelligence: 8,
 			wisdom: 12,
 			charisma: 10
 		},
-		hp: { current: 13, max: 13 }, // 10 (base) + 3 (con mod)
-		inventory: [],
+		hp: { current: 13, max: 13 },
+		inventory: ragnarInventory,
 		skills: ['Athletics', 'Intimidation'],
 		features: ['Dwarven Resilience', 'Second Wind'],
 		conditions: []
@@ -67,14 +68,14 @@ export const defaultCharactes: Character[] = [
 		},
 		stats: {
 			strength: 10,
-			dexterity: 17, // 15 základ + 2 rasový bonus
+			dexterity: 17,
 			constitution: 13,
 			intelligence: 14,
 			wisdom: 12,
 			charisma: 8
 		},
-		hp: { current: 9, max: 9 }, // 8 (base) + 1 (con mod)
-		inventory: [],
+		hp: { current: 9, max: 9 },
+		inventory: elaraInventory,
 		skills: ['Stealth', 'Acrobatics', 'Sleight of Hand'],
 		features: ['Keen Senses', 'Sneak Attack (1d6)'],
 		conditions: []
@@ -115,15 +116,15 @@ export const defaultCharactes: Character[] = [
 			]
 		},
 		stats: {
-			strength: 9, // 8 + 1
-			dexterity: 14, // 13 + 1
-			constitution: 13, // 12 + 1
-			intelligence: 16, // 15 + 1
-			wisdom: 15, // 14 + 1
-			charisma: 11 // 10 + 1
+			strength: 9,
+			dexterity: 14,
+			constitution: 13,
+			intelligence: 16,
+			wisdom: 15,
+			charisma: 11
 		},
-		hp: { current: 7, max: 7 }, // 6 (base) + 1 (con mod)
-		inventory: [],
+		hp: { current: 7, max: 7 },
+		inventory: zephyrInventory,
 		skills: ['Arcana', 'History'],
 		features: ['Arcane Recovery'],
 		conditions: []
