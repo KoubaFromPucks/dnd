@@ -1,5 +1,5 @@
 import React from 'react';
-import { Backpack, Dices } from 'lucide-react';
+import { Backpack, Dices, Edit2, Trash2 } from 'lucide-react';
 import { Character } from '@/schema/character';
 import { PanelHeader } from './panel-header';
 import { DiceThrows } from './dice-throws';
@@ -74,18 +74,41 @@ const InventoryItem = ({
 	item: Item;
 	onEquippedChanged: (item: Item, equipped: boolean) => void;
 }) => (
-	<Button
-		className={cn(
-			'flex w-full justify-between',
-			item.equipped ? 'border-amber-900' : ''
-		)}
-		variant="secondary"
-		size="sm"
-		onClick={() => {
-			item.equipped = !item.equipped;
-			onEquippedChanged?.(item, item.equipped);
-		}}
-	>
-		{item.name} <span className="text-slate-600">{item.quantity}x</span>
-	</Button>
+	<div className="relative flex items-center gap-2">
+		<Button
+			className={cn(
+				'flex flex-1 justify-between pr-14',
+				item.equipped
+					? 'border-amber-600 bg-amber-900/20 text-amber-500'
+					: 'border-slate-800'
+			)}
+			variant="secondary"
+			size="sm"
+			onClick={() => onEquippedChanged?.(item, !item.equipped)}
+		>
+			<span className="text-[10px] text-slate-200">{item.quantity} x</span>
+			<span className="truncate">{item.name}</span>
+		</Button>
+
+		<div className="absolute right-2 flex items-center gap-1">
+			<button
+				onClick={e => {
+					e.stopPropagation();
+				}}
+				className="p-1 text-slate-500 transition-colors hover:text-amber-500"
+				title="Upravit předmět"
+			>
+				<Edit2 size={14} />
+			</button>
+			<button
+				onClick={e => {
+					e.stopPropagation();
+				}}
+				className="p-1 text-slate-500 transition-colors hover:text-red-500"
+				title="Odstranit z inventáře"
+			>
+				<Trash2 size={14} />
+			</button>
+		</div>
+	</div>
 );
