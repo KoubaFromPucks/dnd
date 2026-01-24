@@ -1,48 +1,59 @@
-import React from 'react';
-import { Shield, Heart } from 'lucide-react';
-import { Portrait } from '../portrait';
+import React, { useState } from 'react';
+import { ChevronDown, ChevronRight, Plus, Users } from 'lucide-react';
+import { Button } from '../basic-components/button';
+import { CharacterStats } from './character-stats';
+import { Character } from '@/schema/character';
 
-export const CharacterPanel = () => {
+export const CharacterPanel = ({ characters }: { characters: Character[] }) => {
+	const [expandedId, setExpandedId] = useState<string | null>(
+		characters[0]?.characterName
+	);
+
 	return (
-		<aside className="flex h-full w-64 flex-col gap-6 overflow-y-auto border-r border-slate-800 bg-slate-900 p-6">
-			<div className="text-center">
-				<Portrait />
-				<h2 className="text-xl font-bold text-amber-500">Ragnar Železný</h2>
-				<p className="text-sm text-slate-400 italic">
-					Trpaslík Bojovník (Lvl 1)
-				</p>
+		<aside className="flex h-full w-72 flex-col gap-3 overflow-y-auto border-r border-slate-800 bg-slate-900 p-6">
+			<div className="flex items-center justify-between border-b border-slate-800 bg-slate-900/50 p-4">
+				<h3 className="flex items-center gap-2 text-xs font-bold tracking-widest text-slate-500 uppercase">
+					<Users size={16} /> Družina
+				</h3>
+				<Button
+					variant="ghost"
+					size="sm"
+					className="h-8 w-8 p-0 hover:text-amber-500"
+				>
+					<Plus size={18} />
+				</Button>
 			</div>
 
-			<div className="space-y-4">
-				<div className="flex items-center justify-between rounded-lg border border-red-900/50 bg-slate-800 p-3">
-					<Heart className="text-red-500" size={20} />
-					<span className="font-bold text-red-200">12 / 12 HP</span>
-				</div>
-				<div className="flex items-center justify-between rounded-lg border border-blue-900/50 bg-slate-800 p-3">
-					<Shield className="text-blue-400" size={20} />
-					<span className="font-bold text-blue-200">AC 16</span>
-				</div>
-			</div>
+			{characters.map(char => (
+				<div key={char.characterName} className="flex flex-col">
+					<button
+						onClick={() =>
+							setExpandedId(
+								expandedId === char.characterName ? null : char.characterName
+							)
+						}
+						className={`flex items-center justify-between rounded-t-xl border border-slate-800 p-3 transition-colors ${
+							expandedId === char.characterName
+								? 'bg-slate-800 text-amber-500'
+								: 'rounded-xl bg-slate-900 text-slate-300'
+						}`}
+					>
+						<div className="flex items-center gap-2">
+							{expandedId === char.characterName ? (
+								<ChevronDown size={16} />
+							) : (
+								<ChevronRight size={16} />
+							)}
+							<span className="text-sm font-bold">{char.characterName}</span>
+						</div>
+						<span className="text-[10px] opacity-50">Lvl {char.level}</span>
+					</button>
 
-			<div className="grid grid-cols-2 gap-2 text-xs">
-				{Object.entries({
-					strength: 12,
-					dexterity: 14,
-					constitution: 16,
-					intelligence: 10,
-					wisdom: 8,
-					charisma: 13
-				}).map(([stat, val]) => (
-					<StatBlock key={stat} stat={stat.slice(0, 3)} value={val} />
-				))}
-			</div>
+					{expandedId === char.characterName && (
+						<CharacterStats character={char} />
+					)}
+				</div>
+			))}
 		</aside>
 	);
 };
-
-const StatBlock = ({ stat, value }: { stat: string; value: number }) => (
-	<div className="rounded border border-slate-700 bg-slate-800 p-2 text-center">
-		<div className="text-slate-500 uppercase">{stat}</div>
-		<div className="text-lg font-bold">{value}</div>
-	</div>
-);
