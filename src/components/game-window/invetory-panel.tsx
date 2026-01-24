@@ -3,47 +3,90 @@ import { Backpack, Dices } from 'lucide-react';
 import { Character } from '@/schema/character';
 import { PanelHeader } from './panel-header';
 import { DiceThrows } from './dice-throws';
+import { Button } from '../basic-components/button';
+import { cn } from '@/utils/cn';
+import { Item } from '@/schema/item';
+
+const uneqipAllItemsWithSameSuffix = (
+	character: Character,
+	itemSuffix: string
+) => {
+	character.inventory.forEach(i => {
+		console.log(i);
+		if (i.itemType.endsWith(itemSuffix) && i.equipped) {
+			i.equipped = false;
+		}
+	});
+};
 
 export const InventoryPanel = ({
-	character
+	character,
+	onEquippedChanged
 }: {
 	character: Character | null;
-}) => (
-	<aside className="flex h-full w-72 flex-col gap-6 border-l border-slate-800 bg-slate-900 p-6">
-		<section className="overflow-y-auto">
-			<PanelHeader title="Inventář" icon={<Backpack size={16} />} />
+	onEquippedChanged: () => void;
+}) => {
+	return (
+		<aside className="flex h-full w-72 flex-col gap-6 border-l border-slate-800 bg-slate-900 p-6">
+			<section className="overflow-y-auto">
+				<PanelHeader title="Inventář" icon={<Backpack size={16} />} />
 
-			<div className="space-y-2">
-				{character?.inventory.map(item => (
-					<InventoryItem
-						key={item.name}
-						name={item.name}
-						quantity={item.quantity}
-					/>
-				))}
-			</div>
-		</section>
+				<div className="space-y-2">
+					{character?.inventory.map(item => (
+						<InventoryItem
+							key={item.name}
+							item={item}
+							onEquippedChanged={(item, equipped) => {
+								if (equipped && item.itemType.endsWith('armor')) {
+									uneqipAllItemsWithSameSuffix(character!, 'armor');
+								}
+								if (equipped && item.itemType.endsWith('weapon')) {
+									uneqipAllItemsWithSameSuffix(character!, 'weapon');
+								}
+								if (equipped && item.itemType === 'shield') {
+									uneqipAllItemsWithSameSuffix(character!, 'shield');
+								}
 
-		<section className="mt-auto">
-			<PanelHeader
-				title="Rychlé Hody"
-				icon={<Dices size={16} />}
-				hidePlusButton
-			/>
+								item.equipped = equipped;
+								onEquippedChanged();
+							}}
+						/>
+					))}
+				</div>
+			</section>
 
-			<DiceThrows />
-		</section>
-	</aside>
-);
+			<section className="mt-auto">
+				<PanelHeader
+					title="Rychlé Hody"
+					icon={<Dices size={16} />}
+					hidePlusButton
+				/>
+
+				<DiceThrows />
+			</section>
+		</aside>
+	);
+};
 
 const InventoryItem = ({
-	name,
-	quantity
+	item,
+	onEquippedChanged
 }: {
-	name: string;
-	quantity: number;
+	item: Item;
+	onEquippedChanged: (item: Item, equipped: boolean) => void;
 }) => (
-	<div className="flex cursor-pointer justify-between rounded border border-slate-700 bg-slate-800 p-2 text-sm hover:border-amber-900">
-		{name} <span className="text-slate-600">{quantity}x</span>
-	</div>
+	<Button
+		className={cn(
+			'flex w-full justify-between',
+			item.equipped ? 'border-amber-900' : ''
+		)}
+		variant="secondary"
+		size="sm"
+		onClick={() => {
+			item.equipped = !item.equipped;
+			onEquippedChanged?.(item, item.equipped);
+		}}
+	>
+		{item.name} <span className="text-slate-600">{item.quantity}x</span>
+	</Button>
 );

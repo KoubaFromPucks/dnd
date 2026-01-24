@@ -22,7 +22,12 @@ export const GameWindow = () => {
 
 			<Chat />
 
-			<InventoryPanel character={selectedCharacter} />
+			<InventoryPanel
+				character={selectedCharacter}
+				onEquippedChanged={() => {
+					setSelectedCharacter({ ...selectedCharacter! });
+				}}
+			/>
 		</div>
 	);
 };

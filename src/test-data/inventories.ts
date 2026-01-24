@@ -45,6 +45,21 @@ export const ragnarInventory: Item[] = [
 		effectDuration: 0,
 		rarity: 'common',
 		armorClassBonus: 2
+	},
+	{
+		name: 'Malý štít',
+		itemType: 'shield',
+		useType: 'equippable',
+		description: 'Dubový štít okovaný železem.',
+		weight: 3,
+		equipped: false,
+		cost: 10,
+		quantity: 1,
+		passiveEffects: {},
+		activeEffectDescription: 'Zvyšuje obranu.',
+		effectDuration: 0,
+		rarity: 'common',
+		armorClassBonus: 1
 	}
 ];
 
