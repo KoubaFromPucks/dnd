@@ -1,22 +1,29 @@
-import { Stats } from "./stats";
-import { ThrowParams } from "./throw-params";
+import { Stats } from './stats';
+import { ThrowParams } from './throw-params';
 
 export type Item = {
-    name: string;
-    itemType: 'weapon' | 'armor' | 'consumable' | 'other';
-    useType: 'equippable' | 'consumable';
-    range?: 'melee' | 'ranged';
+	name: string;
+	itemType:
+		| 'melee weapon'
+		| 'ranged weapon'
+		| 'light armor'
+		| 'medium armor'
+		| 'heavy armor'
+		| 'consumable'
+		| 'other'
+		| 'shield';
+	useType: 'equippable' | 'consumable';
 
-    description: string;
-    weight: number;
-    equipped: boolean;
-    cost: number;
-    quantity: number;
-    passiveEffects: Stats;
-    activeEffectDescription: string;
-    effectDuration: number;
+	description: string;
+	weight: number;
+	equipped: boolean;
+	cost: number;
+	quantity: number;
+	passiveEffects: Stats;
+	activeEffectDescription: string;
+	effectDuration: number;
 
-    rarity: 'common' | 'uncommon' | 'rare' | 'very rare' | 'legendary';
-    damage?: ThrowParams;
-    armorClassBonus?: number;
+	rarity: 'common' | 'uncommon' | 'rare' | 'very rare' | 'legendary';
+	damage?: ThrowParams;
+	armorClassBonus?: number;
 };
