@@ -23,7 +23,6 @@ export const Chat = () => {
 				<h1 className="flex items-center gap-2 font-serif text-xl tracking-widest text-amber-600 uppercase">
 					<Zap size={20} /> Dungeon Master AI
 				</h1>
-				<div className="text-sm text-slate-500">Lokace: Zapomenuté doly</div>
 			</header>
 
 			<div className="flex-1 space-y-6 overflow-y-auto bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] p-6">
