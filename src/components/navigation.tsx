@@ -2,9 +2,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Menu, X, Sword } from 'lucide-react'; // Přidána ikona meče pro styl
+import { Menu, X, Sword } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/utils/cn'; // Předpokládám tvou pomocnou funkci
+import { cn } from '@/lib/utils';
 
 const links = [
 	{ href: '/', label: 'Nová Hra' },

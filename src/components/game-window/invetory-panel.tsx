@@ -4,7 +4,7 @@ import { Character } from '@/schema/character';
 import { PanelHeader } from './panel-header';
 import { DiceThrows } from './dice-throws';
 import { Button } from '../basic-components/button';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Item } from '@/schema/item';
 
 const uneqipAllItemsWithSameSuffix = (
