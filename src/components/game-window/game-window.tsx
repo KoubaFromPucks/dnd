@@ -7,8 +7,6 @@ import { Chat } from '@/components/game-window/chat';
 import { InventoryPanel } from '@/components/game-window/invetory-panel';
 import { defaultCharactes } from '@/test-data/character-data';
 import { Character } from '@/schema/character';
-import { CreateUpdateCharacterDialog } from '../ui/concrete-dialogs/create-update-character-dialog/create-update-character-dialog';
-import { PlusButton } from '../basic-components';
 
 export const GameWindow = () => {
 	const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
@@ -21,9 +19,10 @@ export const GameWindow = () => {
 			<CharacterPanel
 				characters={characters}
 				onSelectCharacter={setSelectedCharacter}
-				addCharacterButton={
-					<CreateUpdateCharacterDialog trigger={<PlusButton />} />
-				}
+				onAddCharacter={character => {
+					console.log('GAME WINDOW', character);
+					setCharacters([...characters, character]);
+				}}
 			/>
 
 			<Chat />

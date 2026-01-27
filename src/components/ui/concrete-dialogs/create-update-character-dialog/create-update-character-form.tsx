@@ -23,13 +23,14 @@ export type CreateUpdateCharacterDialogHandle = {
 
 type CreateUpdateCharacterFormProps = {
 	characterToUpdate?: Character;
+	onSuccess?: (character: Character) => void;
 };
 
 // TODO edit
 export const CreateUpdateCharacterForm = forwardRef<
 	CreateUpdateCharacterDialogHandle,
 	CreateUpdateCharacterFormProps
->(({ characterToUpdate }, ref) => {
+>(({ characterToUpdate, onSuccess }, ref) => {
 	const form = useForm<Character>({
 		resolver: zodResolver(CharacterCreateUpdateSchema),
 		defaultValues: characterToUpdate || {
@@ -47,6 +48,8 @@ export const CreateUpdateCharacterForm = forwardRef<
 			},
 			hp: { current: 1, max: 1 },
 			inventory: [],
+			ac: 0,
+			maxCarryWeight: 0,
 			currentGold: 0,
 			conditions: [],
 			proficiencyBonus: 0,
@@ -65,7 +68,7 @@ export const CreateUpdateCharacterForm = forwardRef<
 	useImperativeHandle(ref, () => ({
 		submit: () => {
 			form.handleSubmit(data => {
-				console.log('Form submitted:', data);
+				onSuccess?.(data);
 			})();
 		}
 	}));
@@ -74,9 +77,7 @@ export const CreateUpdateCharacterForm = forwardRef<
 		<FormProvider {...form}>
 			<form
 				id="create-update-character-form"
-				onSubmit={form.handleSubmit(data => {
-					console.log('Form submitted:', data);
-				})}
+				onSubmit={form.handleSubmit(() => {})}
 			>
 				<div className="scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 scrollbar-track-gray-100 max-h-[65vh] space-y-4 overflow-y-auto py-2 pr-4">
 					<Accordion
@@ -138,6 +139,12 @@ export const CreateUpdateCharacterForm = forwardRef<
 							<FormInput
 								name="proficiencyBonus"
 								label="Proficiency Bonus"
+								type="number"
+							/>
+							<FormInput name="ac" label="Armor Class (AC)" type="number" />
+							<FormInput
+								name="maxCarryWeight"
+								label="Max Carry Weight"
 								type="number"
 							/>
 							<FormTextarea

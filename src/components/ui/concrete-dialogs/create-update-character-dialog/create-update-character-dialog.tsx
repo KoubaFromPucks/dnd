@@ -16,6 +16,7 @@ import {
 	CreateUpdateCharacterForm
 } from './create-update-character-form';
 import { Character } from '@/schema/character';
+import { toast } from 'sonner';
 
 export const CreateUpdateCharacterDialog = ({
 	characterToUpdate,
@@ -32,11 +33,13 @@ export const CreateUpdateCharacterDialog = ({
 	const formRef = useRef<CreateUpdateCharacterDialogHandle>(null);
 
 	return (
-		<Dialog open={open}>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>{trigger}</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Create / Update Character</DialogTitle>
+					<DialogTitle>
+						{characterToUpdate ? 'Update' : 'Create'} Character
+					</DialogTitle>
 					<DialogDescription>
 						Input the character details below.
 					</DialogDescription>
@@ -45,6 +48,11 @@ export const CreateUpdateCharacterDialog = ({
 				<CreateUpdateCharacterForm
 					ref={formRef}
 					characterToUpdate={characterToUpdate}
+					onSuccess={data => {
+						onSave?.(data);
+						setOpen(false);
+						toast.success('Character saved successfully!');
+					}}
 				/>
 
 				<DialogFooter>
@@ -59,7 +67,6 @@ export const CreateUpdateCharacterDialog = ({
 					<Button
 						onClick={() => {
 							formRef.current?.submit();
-							onSave?.(characterToUpdate!);
 						}}
 					>
 						Save

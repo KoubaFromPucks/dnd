@@ -8,7 +8,7 @@ import { POSSIBLE_SKILLS } from './skill';
 
 export const CharacterCreateUpdateSchema = z.object({
 	pictureUrl: z.string().url().optional().or(z.literal('')),
-	characterBackground: z.string().min(1),
+	characterBackground: z.string().optional().or(z.literal('')),
 	characterName: z.string().min(1),
 	level: z.number().min(1).max(20),
 	stats: statsSchema,
@@ -34,7 +34,10 @@ export const CharacterCreateUpdateSchema = z.object({
 		z.array(z.string())
 	),
 
-	// speed
+	ac: z.number().min(0),
+	maxCarryWeight: z.number().min(0),
+
+	// class
 	className: z.enum(POSSIBLE_CLASSES),
 	savingThrows: z.array(z.enum(POSSIBLE_STATS)),
 	features: z.preprocess(
@@ -56,6 +59,8 @@ export type Character = {
 	alignment?: string; // "Lawful Good", and so on... (can help AI's roleplaying)
 	conditions: string[]; // e.g., ["Poisoned", "Stunned"]
 	proficiencyBonus: number;
+	ac: number;
+	maxCarryWeight: number;
 
 	// race attributes
 	raceName: RaceName;

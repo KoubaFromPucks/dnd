@@ -3,17 +3,19 @@ import { ChevronDown, ChevronRight, Users } from 'lucide-react';
 import { CharacterStats } from './character-stats';
 import { Character } from '@/schema/character';
 import { PanelHeader } from './panel-header';
+import { CreateUpdateCharacterDialog } from '@/components/ui';
+import { PlusButton } from '@/components/basic-components';
 
 type characterPanelProps = {
 	characters: Character[];
 	onSelectCharacter: (character: Character | null) => void;
-	addCharacterButton?: React.ReactNode;
+	onAddCharacter: (character: Character) => void;
 };
 
 export const CharacterPanel = ({
 	characters,
 	onSelectCharacter,
-	addCharacterButton
+	onAddCharacter
 }: characterPanelProps) => {
 	const [expandedId, setExpandedId] = useState<string | null>(null);
 
@@ -22,7 +24,15 @@ export const CharacterPanel = ({
 			<PanelHeader
 				title="Party"
 				icon={<Users size={16} />}
-				actionButton={addCharacterButton}
+				actionButton={
+					<CreateUpdateCharacterDialog
+						trigger={<PlusButton />}
+						onSave={character => {
+							character.inventory = [];
+							onAddCharacter(character);
+						}}
+					/>
+				}
 			/>
 
 			{characters.map(char => (
