@@ -9,6 +9,7 @@ import {
 
 export const defaultCharactes: Character[] = [
 	{
+		id: crypto.randomUUID(),
 		characterName: 'Ragnar Železný',
 		characterBackground:
 			'Veterán z hlubokých dolů, který hledá ztracenou slávu svého klanu.',
@@ -44,6 +45,7 @@ export const defaultCharactes: Character[] = [
 		conditions: []
 	},
 	{
+		id: crypto.randomUUID(),
 		characterName: 'Elara Stínová',
 		characterBackground:
 			'Uprchlá šlechtična, která se naučila přežít v temných uličkách města.',
@@ -77,6 +79,7 @@ export const defaultCharactes: Character[] = [
 		conditions: []
 	},
 	{
+		id: crypto.randomUUID(),
 		characterName: 'Zephyr Moudrý',
 		characterBackground:
 			'Učenec z daleké věže, který věří, že vědění je mocnější než meč.',

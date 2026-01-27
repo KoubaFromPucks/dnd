@@ -17,9 +17,13 @@ const variantStyles: Record<StateVariant, string> = {
 
 type CharacterStatsProps = {
 	character?: Character;
+	onCharacterUpdate?: (character: Character) => void;
 };
 
-export const CharacterStats = ({ character }: CharacterStatsProps) => {
+export const CharacterStats = ({
+	character,
+	onCharacterUpdate
+}: CharacterStatsProps) => {
 	return (
 		<div className="flex flex-col gap-6 rounded-b-xl border-x border-b border-slate-800 bg-slate-800/30 p-2">
 			<div className="text-center">
@@ -79,6 +83,7 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 					</Button>
 				}
 				characterToUpdate={character}
+				onSave={onCharacterUpdate}
 			/>
 		</div>
 	);

@@ -9,13 +9,15 @@ import { PlusButton } from '@/components/basic-components';
 type characterPanelProps = {
 	characters: Character[];
 	onSelectCharacter: (character: Character | null) => void;
-	onAddCharacter: (character: Character) => void;
+	onCharacterAdd: (character: Character) => void;
+	onCharacterUpdate?: (character: Character) => void;
 };
 
 export const CharacterPanel = ({
 	characters,
 	onSelectCharacter,
-	onAddCharacter
+	onCharacterAdd,
+	onCharacterUpdate
 }: characterPanelProps) => {
 	const [expandedId, setExpandedId] = useState<string | null>(null);
 
@@ -29,7 +31,8 @@ export const CharacterPanel = ({
 						trigger={<PlusButton />}
 						onSave={character => {
 							character.inventory = [];
-							onAddCharacter(character);
+							character.id = crypto.randomUUID();
+							onCharacterAdd(character);
 						}}
 					/>
 				}
@@ -62,7 +65,14 @@ export const CharacterPanel = ({
 					</button>
 
 					{expandedId === char.characterName && (
-						<CharacterStats character={char} />
+						<CharacterStats
+							character={char}
+							onCharacterUpdate={updatedCharacter => {
+								updatedCharacter.id = char.id;
+								updatedCharacter.inventory = char.inventory;
+								onCharacterUpdate?.(updatedCharacter);
+							}}
+						/>
 					)}
 				</div>
 			))}

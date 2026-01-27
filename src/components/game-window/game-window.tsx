@@ -19,9 +19,17 @@ export const GameWindow = () => {
 			<CharacterPanel
 				characters={characters}
 				onSelectCharacter={setSelectedCharacter}
-				onAddCharacter={character => {
-					console.log('GAME WINDOW', character);
+				onCharacterAdd={character => {
+					console.log('GAME WINDOW ADD CHARACTER', character);
 					setCharacters([...characters, character]);
+				}}
+				onCharacterUpdate={(updatedCharacter: Character) => {
+					console.log('GAME WINDOW UPDATE CHARACTER', updatedCharacter);
+					setCharacters(
+						characters.map(char =>
+							char.id === updatedCharacter.id ? updatedCharacter : char
+						)
+					);
 				}}
 			/>
 

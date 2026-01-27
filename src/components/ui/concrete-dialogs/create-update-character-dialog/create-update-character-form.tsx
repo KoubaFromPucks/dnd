@@ -28,7 +28,9 @@ type CreateUpdateCharacterFormProps = {
 	onError?: (error: FieldErrors<Character>) => void;
 };
 
-// TODO edit
+// TODO pole - čárky x \n
+// TODO inputy nejsou vidět celý
+// TODO update
 export const CreateUpdateCharacterForm = forwardRef<
 	CreateUpdateCharacterDialogHandle,
 	CreateUpdateCharacterFormProps
@@ -49,7 +51,6 @@ export const CreateUpdateCharacterForm = forwardRef<
 				charisma: 1
 			},
 			hp: { current: 1, max: 1 },
-			inventory: [],
 			ac: 0,
 			maxCarryWeight: 0,
 			currentGold: 0,
@@ -104,6 +105,13 @@ export const CreateUpdateCharacterForm = forwardRef<
 			if (classData) {
 				setValue('savingThrows', classData.savingThrows);
 				setValue('features', classData.featureList[1] || []);
+				setValue(
+					'proficiencySkills',
+					classData.possibleStartingSkills.slice(
+						0,
+						classData.numberOfStartingSkills
+					)
+				);
 			}
 		}, [selectedClass, setValue]);
 

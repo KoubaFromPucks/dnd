@@ -48,6 +48,7 @@ export const CharacterCreateUpdateSchema = z.object({
 });
 
 export type Character = {
+	id: string;
 	pictureUrl?: string;
 	characterBackground: string;
 	characterName: string;
