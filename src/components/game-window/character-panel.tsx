@@ -39,22 +39,21 @@ export const CharacterPanel = ({
 			/>
 
 			{characters.map(char => (
-				<div key={char.characterName} className="flex flex-col">
+				<div key={char.id} className="flex flex-col">
 					<button
 						onClick={() => {
-							const newExpandedId =
-								expandedId === char.characterName ? null : char.characterName;
+							const newExpandedId = expandedId === char.id ? null : char.id;
 							setExpandedId(newExpandedId);
 							onSelectCharacter(newExpandedId ? char : null);
 						}}
 						className={`flex items-center justify-between rounded-t-xl border border-slate-800 p-3 transition-colors ${
-							expandedId === char.characterName
+							expandedId === char.id
 								? 'bg-slate-800 text-amber-500'
 								: 'rounded-xl bg-slate-900 text-slate-300'
 						}`}
 					>
 						<div className="flex items-center gap-2">
-							{expandedId === char.characterName ? (
+							{expandedId === char.id ? (
 								<ChevronDown size={16} />
 							) : (
 								<ChevronRight size={16} />
@@ -64,7 +63,7 @@ export const CharacterPanel = ({
 						<span className="text-[10px] opacity-50">Lvl {char.level}</span>
 					</button>
 
-					{expandedId === char.characterName && (
+					{expandedId === char.id && (
 						<CharacterStats
 							character={char}
 							onCharacterUpdate={updatedCharacter => {
