@@ -3,9 +3,7 @@ import { Shield, Heart, Coins, Weight, Edit2 } from 'lucide-react';
 import { Portrait } from '../portrait';
 import { Character } from '@/schema/character';
 import {
-	getAC,
 	getCurrentCarryWeight,
-	getMaximalCarryWeight
 } from '@/utils/character-utils';
 import { CreateUpdateCharacterDialog } from '../ui/concrete-dialogs/create-update-character-dialog/create-update-character-dialog';
 import { Button } from '../basic-components';
@@ -82,6 +80,7 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 						<Edit2 size={16} className="mr-3" /> Edit
 					</Button>
 				}
+				characterToUpdate={character}
 			></CreateUpdateCharacterDialog>
 		</div>
 	);
