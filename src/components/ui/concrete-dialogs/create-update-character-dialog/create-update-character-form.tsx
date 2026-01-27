@@ -30,7 +30,6 @@ type CreateUpdateCharacterFormProps = {
 
 // TODO pole - čárky x \n
 // TODO inputy nejsou vidět celý
-// TODO update
 export const CreateUpdateCharacterForm = forwardRef<
 	CreateUpdateCharacterDialogHandle,
 	CreateUpdateCharacterFormProps
@@ -38,6 +37,7 @@ export const CreateUpdateCharacterForm = forwardRef<
 	const form = useForm<Character>({
 		resolver: zodResolver(CharacterCreateUpdateSchema),
 		defaultValues: characterToUpdate || {
+			id: crypto.randomUUID(),
 			characterName: '',
 			pictureUrl: '',
 			characterBackground: '',
@@ -50,6 +50,7 @@ export const CreateUpdateCharacterForm = forwardRef<
 				wisdom: 1,
 				charisma: 1
 			},
+			inventory: [],
 			hp: { current: 1, max: 1 },
 			ac: 0,
 			maxCarryWeight: 0,

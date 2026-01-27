@@ -1,5 +1,5 @@
 import { POSSIBLE_STATS, statsSchema, type Stats } from './stats';
-import { type Item } from './item';
+import { ItemSchema, type Item } from './item';
 import { POSSIBLE_CLASSES } from './character-class';
 
 import { z } from 'zod';
@@ -7,12 +7,14 @@ import { POSSIBLE_RACES, RaceName } from './character-race';
 import { POSSIBLE_SKILLS } from './skill';
 
 export const CharacterCreateUpdateSchema = z.object({
+	id: z.string().uuid(),
 	pictureUrl: z.string().url().optional().or(z.literal('')),
 	characterBackground: z.string().optional().or(z.literal('')),
 	characterName: z.string().min(1),
 	level: z.number().min(1).max(20),
 	stats: statsSchema,
 	hp: z.object({ current: z.number().min(0), max: z.number().min(1) }),
+	inventory: ItemSchema.array(),
 	currentGold: z.number().min(0),
 	alignment: z.string().optional().or(z.literal('')),
 	conditions: z.preprocess(
@@ -20,6 +22,8 @@ export const CharacterCreateUpdateSchema = z.object({
 		z.array(z.string())
 	),
 	proficiencyBonus: z.number().min(0),
+	ac: z.number().min(0),
+	maxCarryWeight: z.number().min(0),
 
 	// race
 	raceName: z.enum(POSSIBLE_RACES),
@@ -34,9 +38,6 @@ export const CharacterCreateUpdateSchema = z.object({
 		z.array(z.string())
 	),
 
-	ac: z.number().min(0),
-	maxCarryWeight: z.number().min(0),
-
 	// class
 	className: z.enum(POSSIBLE_CLASSES),
 	savingThrows: z.array(z.enum(POSSIBLE_STATS)),
@@ -47,32 +48,4 @@ export const CharacterCreateUpdateSchema = z.object({
 	proficiencySkills: z.array(z.enum(POSSIBLE_SKILLS))
 });
 
-export type Character = {
-	id: string;
-	pictureUrl?: string;
-	characterBackground: string;
-	characterName: string;
-	level: number;
-	stats: Required<Stats>;
-	hp: { current: number; max: number };
-	inventory: Item[];
-	currentGold: number;
-	alignment?: string; // "Lawful Good", and so on... (can help AI's roleplaying)
-	conditions: string[]; // e.g., ["Poisoned", "Stunned"]
-	proficiencyBonus: number;
-	ac: number;
-	maxCarryWeight: number;
-
-	// race attributes
-	raceName: RaceName;
-	speed: number;
-	darkvision: number;
-	traits: string[];
-	languages: string[];
-
-	// class bonuses
-	className: (typeof POSSIBLE_CLASSES)[number];
-	savingThrows: (keyof Stats)[];
-	features: string[];
-	proficiencySkills: (typeof POSSIBLE_SKILLS)[number][];
-};
+export type Character = z.infer<typeof CharacterCreateUpdateSchema>;

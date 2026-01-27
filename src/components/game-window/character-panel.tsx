@@ -30,8 +30,6 @@ export const CharacterPanel = ({
 					<CreateUpdateCharacterDialog
 						trigger={<PlusButton />}
 						onSave={character => {
-							character.inventory = [];
-							character.id = crypto.randomUUID();
 							onCharacterAdd(character);
 						}}
 					/>
@@ -67,8 +65,6 @@ export const CharacterPanel = ({
 						<CharacterStats
 							character={char}
 							onCharacterUpdate={updatedCharacter => {
-								updatedCharacter.id = char.id;
-								updatedCharacter.inventory = char.inventory;
 								onCharacterUpdate?.(updatedCharacter);
 							}}
 						/>

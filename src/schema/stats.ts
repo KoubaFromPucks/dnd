@@ -10,6 +10,15 @@ export const POSSIBLE_STATS = [
 ] as const;
 
 export const statsSchema = z.object({
+	strength: z.number().min(1),
+	dexterity: z.number().min(1),
+	constitution: z.number().min(1),
+	intelligence: z.number().min(1),
+	wisdom: z.number().min(1),
+	charisma: z.number().min(1)
+});
+
+export const optionalStatsSchema = z.object({
 	strength: z.number().min(1).optional(),
 	dexterity: z.number().min(1).optional(),
 	constitution: z.number().min(1).optional(),
