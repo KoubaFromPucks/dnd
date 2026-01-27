@@ -28,7 +28,7 @@ export const InventoryPanel = ({
 	return (
 		<aside className="flex h-full w-72 flex-col gap-6 border-l border-slate-800 bg-slate-900 p-6">
 			<section className="overflow-y-auto">
-				<PanelHeader title="Inventář" icon={<Backpack size={16} />} />
+				<PanelHeader title="Inventory" icon={<Backpack size={16} />} />
 
 				<div className="space-y-2">
 					{character?.inventory.map(item => (
@@ -56,7 +56,7 @@ export const InventoryPanel = ({
 
 			<section className="mt-auto">
 				<PanelHeader
-					title="Rychlé Hody"
+					title="Quick Throws"
 					icon={<Dices size={16} />}
 					hidePlusButton
 				/>
@@ -96,7 +96,7 @@ const InventoryItem = ({
 					e.stopPropagation();
 				}}
 				className="p-1 text-slate-500 transition-colors hover:text-amber-500"
-				title="Upravit předmět"
+				title="Edit Item"
 			>
 				<Edit2 size={14} />
 			</button>
@@ -105,7 +105,7 @@ const InventoryItem = ({
 					e.stopPropagation();
 				}}
 				className="p-1 text-slate-500 transition-colors hover:text-red-500"
-				title="Odstranit z inventáře"
+				title="Remove from Inventory"
 			>
 				<Trash2 size={14} />
 			</button>

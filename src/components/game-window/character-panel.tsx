@@ -17,7 +17,7 @@ export const CharacterPanel = ({
 
 	return (
 		<aside className="flex h-full w-72 flex-col gap-3 overflow-y-auto border-r border-slate-800 bg-slate-900 p-6">
-			<PanelHeader title="Družina" icon={<Users size={16} />} />
+			<PanelHeader title="Party" icon={<Users size={16} />} />
 
 			{characters.map(char => (
 				<div key={char.characterName} className="flex flex-col">

@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { useState } from 'react';
 import { Edit2 } from 'lucide-react';
+import { CreateUpdateCharacterForm } from './create-update-character-form';
 
 export const CreateUpdateCharacterDialog = ({
 	isOpen,
@@ -31,24 +32,24 @@ export const CreateUpdateCharacterDialog = ({
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Vytvořit / Upravit Postavu</DialogTitle>
+					<DialogTitle>Create / Update Character</DialogTitle>
 					<DialogDescription>
-						Zadejte jméno vaší postavy a další detaily.
+						Input the character details below.
 					</DialogDescription>
 				</DialogHeader>
-				<div className="grid gap-4 py-4">
-					<div className="grid gap-2"></div>
-				</div>
+				
+				<CreateUpdateCharacterForm />
+
 				<DialogFooter>
 					<Button variant="outline" onClick={() => {}}>
-						Zrušit
+						Cancel
 					</Button>
 					<Button
 						onClick={() => {
 							onSave?.(characterName);
 						}}
 					>
-						Uložit
+						Save
 					</Button>
 				</DialogFooter>
 			</DialogContent>

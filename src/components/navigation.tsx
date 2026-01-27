@@ -7,9 +7,9 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 const links = [
-	{ href: '/', label: 'Nová Hra' },
-	{ href: '/', label: 'Uložit' },
-	{ href: '/', label: 'Načíst' }
+	{ href: '/', label: 'New Game' },
+	{ href: '/', label: 'Save' },
+	{ href: '/', label: 'Load' }
 ];
 
 export const Navigation = () => {
