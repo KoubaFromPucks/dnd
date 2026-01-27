@@ -67,7 +67,9 @@ export const FormSelect = ({
 									!bg-background !border !border-input !rounded-md !min-h-[40px] !text-sm !transition-all
 									${isFocused ? '!ring-2 !ring-ring !ring-offset-2 !ring-offset-background !outline-none' : ''}
 									${errors[name] ? '!border-red-600' : ''}
+									!pl-1
 								`,
+								valueContainer: () => '!px-2 !gap-1',
 								menu: () =>
 									'!bg-background !border !border-border !mt-2 !rounded-md !shadow-xl !z-50',
 								option: ({ isFocused, isSelected }) => `
