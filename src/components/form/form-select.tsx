@@ -1,7 +1,7 @@
 // components/form/form-select.tsx
 import React from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
-import Select, { MultiValue, SingleValue } from 'react-select';
+import Select, { ActionMeta, MultiValue, SingleValue } from 'react-select';
 
 type Option = { value: string; label: string };
 
@@ -51,7 +51,10 @@ export const FormSelect = ({
 							placeholder={placeholder}
 							options={options}
 							value={getValue()}
-							onChange={(val: MultiValue<Option> | SingleValue<Option>) => {
+							onChange={(
+								val: MultiValue<Option> | SingleValue<Option>,
+								_actionMeta: ActionMeta<Option>
+							) => {
 								if (isMulti) {
 									onChange((val as MultiValue<Option>).map(v => v.value));
 								} else {

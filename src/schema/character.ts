@@ -1,10 +1,26 @@
-import { POSSIBLE_STATS, statsSchema, type Stats } from './stats';
-import { ItemSchema, type Item } from './item';
+import { POSSIBLE_STATS, statsSchema } from './stats';
+import { ItemSchema } from './item';
 import { POSSIBLE_CLASSES } from './character-class';
 
 import { z } from 'zod';
-import { POSSIBLE_RACES, RaceName } from './character-race';
+import { POSSIBLE_RACES } from './character-race';
 import { POSSIBLE_SKILLS } from './skill';
+
+export const ARRAY_STRING_SEPARATOR = '\n';
+
+export const stringToArray = (input: string) =>
+	input
+		.split(ARRAY_STRING_SEPARATOR)
+		.map(str => str.trim())
+		.filter(Boolean);
+
+export const arrayToString = (input: string[]) =>
+	input.join(ARRAY_STRING_SEPARATOR);
+
+const stringToArraySchema = z
+	.string()
+	.transform(stringToArray)
+	.pipe(z.string().array());
 
 export const CharacterCreateUpdateSchema = z.object({
 	id: z.string().uuid(),
@@ -17,10 +33,7 @@ export const CharacterCreateUpdateSchema = z.object({
 	inventory: ItemSchema.array(),
 	currentGold: z.number().min(0),
 	alignment: z.string().optional().or(z.literal('')),
-	conditions: z.preprocess(
-		val => (typeof val === 'string' ? val.split('\n').map(s => s.trim()) : val),
-		z.array(z.string())
-	),
+	conditions: stringToArraySchema,
 	proficiencyBonus: z.number().min(0),
 	ac: z.number().min(0),
 	maxCarryWeight: z.number().min(0),
@@ -29,23 +42,20 @@ export const CharacterCreateUpdateSchema = z.object({
 	raceName: z.enum(POSSIBLE_RACES),
 	speed: z.number().min(0),
 	darkvision: z.number().min(0),
-	traits: z.preprocess(
-		val => (typeof val === 'string' ? val.split('\n').map(s => s.trim()) : val),
-		z.array(z.string())
-	),
-	languages: z.preprocess(
-		val => (typeof val === 'string' ? val.split('\n').map(s => s.trim()) : val),
-		z.array(z.string())
-	),
+	traits: stringToArraySchema,
+	languages: stringToArraySchema,
 
 	// class
 	className: z.enum(POSSIBLE_CLASSES),
 	savingThrows: z.array(z.enum(POSSIBLE_STATS)),
-	features: z.preprocess(
-		val => (typeof val === 'string' ? val.split('\n').map(s => s.trim()) : val),
-		z.array(z.string())
-	),
+	features: stringToArraySchema,
 	proficiencySkills: z.array(z.enum(POSSIBLE_SKILLS))
 });
 
-export type Character = z.infer<typeof CharacterCreateUpdateSchema>;
+export type Character = z.output<typeof CharacterCreateUpdateSchema>;
+
+export type CharacterCreateUpdateInput = z.input<
+	typeof CharacterCreateUpdateSchema
+>;
+
+export type aaa = z.input<typeof stringToArraySchema>;

@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
-import { Character, CharacterCreateUpdateSchema } from '@/schema/character';
+import {
+	arrayToString,
+	Character,
+	CharacterCreateUpdateInput,
+	CharacterCreateUpdateSchema
+} from '@/schema/character';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormInput, FormSelect } from '@/components/form';
@@ -17,6 +22,7 @@ import { POSSIBLE_STATS } from '@/schema/stats';
 import { POSSIBLE_SKILLS } from '@/schema/skill';
 import { forwardRef, useImperativeHandle } from 'react';
 import { getAC, getMaximalCarryWeight } from '@/utils/character-utils';
+import { ARRAY_STRING_SEPARATOR } from '@/schema/character';
 
 export type CreateUpdateCharacterDialogHandle = {
 	submit: () => void;
@@ -25,18 +31,31 @@ export type CreateUpdateCharacterDialogHandle = {
 type CreateUpdateCharacterFormProps = {
 	characterToUpdate?: Character;
 	onSuccess?: (character: Character) => void;
-	onError?: (error: FieldErrors<Character>) => void;
+	onError?: (error: FieldErrors<CharacterCreateUpdateInput>) => void;
 };
 
-// TODO pole - čárky x \n
+const prepareDataForForm = (
+	character: Character | undefined
+): CharacterCreateUpdateInput | undefined => {
+	if (!character) return undefined;
+
+	return {
+		...character,
+		conditions: character.conditions?.join(ARRAY_STRING_SEPARATOR) ?? '',
+		traits: character.traits?.join(ARRAY_STRING_SEPARATOR) ?? '',
+		languages: character.languages?.join(ARRAY_STRING_SEPARATOR) ?? '',
+		features: character.features?.join(ARRAY_STRING_SEPARATOR) ?? ''
+	} as CharacterCreateUpdateInput;
+};
+
 // TODO inputy nejsou vidět celý
 export const CreateUpdateCharacterForm = forwardRef<
 	CreateUpdateCharacterDialogHandle,
 	CreateUpdateCharacterFormProps
 >(({ characterToUpdate, onSuccess, onError }, ref) => {
-	const form = useForm<Character>({
+	const form = useForm<CharacterCreateUpdateInput>({
 		resolver: zodResolver(CharacterCreateUpdateSchema),
-		defaultValues: characterToUpdate || {
+		defaultValues: prepareDataForForm(characterToUpdate) || {
 			id: crypto.randomUUID(),
 			characterName: '',
 			pictureUrl: '',
@@ -55,16 +74,16 @@ export const CreateUpdateCharacterForm = forwardRef<
 			ac: 0,
 			maxCarryWeight: 0,
 			currentGold: 0,
-			conditions: [],
+			conditions: '',
 			proficiencyBonus: 0,
 			raceName: 'Human',
 			speed: 30,
 			darkvision: 0,
-			traits: [],
-			languages: [],
+			traits: '',
+			languages: '',
 			className: 'Fighter',
 			savingThrows: [],
-			features: [],
+			features: '',
 			proficiencySkills: []
 		}
 	});
@@ -79,8 +98,9 @@ export const CreateUpdateCharacterForm = forwardRef<
 	useImperativeHandle(ref, () => ({
 		submit: () => {
 			handleSubmit(
-				data => {
-					onSuccess?.(data);
+				(data: CharacterCreateUpdateInput) => {
+					console.log('Form submission data:', data);
+					onSuccess?.(data as unknown as Character);
 				},
 				error => {
 					console.log('Form submission error:', error);
@@ -96,8 +116,8 @@ export const CreateUpdateCharacterForm = forwardRef<
 			if (raceData) {
 				setValue('speed', raceData.speed);
 				setValue('darkvision', raceData.darkvision);
-				setValue('traits', raceData.traits);
-				setValue('languages', raceData.languages);
+				setValue('traits', arrayToString(raceData.traits));
+				setValue('languages', arrayToString(raceData.languages));
 			}
 		}, [selectedRace, setValue]);
 
@@ -105,7 +125,7 @@ export const CreateUpdateCharacterForm = forwardRef<
 			const classData = CLASSES[selectedClass];
 			if (classData) {
 				setValue('savingThrows', classData.savingThrows);
-				setValue('features', classData.featureList[1] || []);
+				setValue('features', arrayToString(classData.featureList[1] || []));
 				setValue(
 					'proficiencySkills',
 					classData.possibleStartingSkills.slice(
