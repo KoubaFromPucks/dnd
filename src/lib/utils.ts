@@ -1,6 +1,10 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-export function cn(...inputs: ClassValue[]) {
+export const cn = (...inputs: ClassValue[]) => {
 	return twMerge(clsx(inputs));
-}
+};
+
+export const stringArrayToSelectOptions = (options: string[]) => {
+	return options.map(option => ({ label: option, value: option }));
+};

@@ -1,5 +1,5 @@
 import { Stats } from './stats';
-import { SKILLS } from './skill';
+import { POSSIBLE_SKILLS } from './skill';
 
 export const POSSIBLE_CLASSES = [
 	'Barbarian',
@@ -21,7 +21,7 @@ export type CharacterClass = {
 	name: className;
 	savingThrows: (keyof Stats)[];
 	featureList: Record<number, string[]>;
-	possibleStartingSkills: (typeof SKILLS)[number][];
+	possibleStartingSkills: (typeof POSSIBLE_SKILLS)[number][];
 	numberOfStartingSkills: number;
 };
 
@@ -84,7 +84,7 @@ export const CLASSES: Record<className, CharacterClass> = {
 			19: ['Ability Score Improvement'],
 			20: ['Superior Inspiration']
 		},
-		possibleStartingSkills: SKILLS.map(skill => skill),
+		possibleStartingSkills: POSSIBLE_SKILLS.map(skill => skill),
 		numberOfStartingSkills: 3
 	},
 	Cleric: {

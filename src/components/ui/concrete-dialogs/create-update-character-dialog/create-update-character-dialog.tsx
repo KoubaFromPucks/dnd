@@ -37,7 +37,7 @@ export const CreateUpdateCharacterDialog = ({
 						Input the character details below.
 					</DialogDescription>
 				</DialogHeader>
-				
+
 				<CreateUpdateCharacterForm />
 
 				<DialogFooter>

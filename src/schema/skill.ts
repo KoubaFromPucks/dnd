@@ -1,4 +1,4 @@
-export const SKILLS = [
+export const POSSIBLE_SKILLS = [
 	'Acrobatics',
 	'Animal Handling',
 	'Arcana',
@@ -19,4 +19,4 @@ export const SKILLS = [
 	'Survival'
 ] as const;
 
-export type SkillEnum = (typeof SKILLS)[number];
+export type SkillEnum = (typeof POSSIBLE_SKILLS)[number];

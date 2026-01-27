@@ -1,85 +1,218 @@
-import React from "react";
-import { Character, CharacterCreateUpdateSchema } from "@/schema/character";
-import { Form, FormProvider, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormInput, FormSelect } from "@/components/form";
-import { POSSIBLE_RACES, RACES } from "@/schema/character-race";
-import { POSSIBLE_CLASSES } from "@/schema/character-class";
+import React from 'react';
+import { Character, CharacterCreateUpdateSchema } from '@/schema/character';
+import { FormProvider, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormInput, FormSelect } from '@/components/form';
+import { POSSIBLE_RACES } from '@/schema/character-race';
+import { POSSIBLE_CLASSES } from '@/schema/character-class';
+import { stringArrayToSelectOptions } from '@/lib/utils';
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger
+} from '../../accordion';
+import { FormTextarea } from '@/components/form/form-textarea';
+import { POSSIBLE_STATS } from '@/schema/stats';
+import { POSSIBLE_SKILLS } from '@/schema/skill';
 type CreateUpdateCharacterFormProps = {
-    characterToUpdate?: Character;
+	characterToUpdate?: Character;
 };
 
 // TODO edit
-export const CreateUpdateCharacterForm = ({ characterToUpdate }: CreateUpdateCharacterFormProps) => {
-    const form = useForm<Character>({
-        resolver: zodResolver(CharacterCreateUpdateSchema),
-        defaultValues: characterToUpdate || {
-            characterName: '',
-            characterBackground: '',
-            level: 1,
-            stats: {
-                strength: 1,
-                dexterity: 1,
-                constitution: 1,
-                intelligence: 1,
-                wisdom: 1,
-                charisma: 1
-            },
-            hp: { current: 1, max: 1 },
-            inventory: [],
-            currentGold: 0,
-            conditions: [],
-            proficiencyBonus: 0,
-            raceName: 'Human',
-            speed: 30,
-            darkvision: 0,
-            traits: [],
-            languages: [],
-            className: 'Fighter',
-            savingThrows: [],
-            features: [],
-            proficiencySkills: []
-        }
-    });
+export const CreateUpdateCharacterForm = ({
+	characterToUpdate
+}: CreateUpdateCharacterFormProps) => {
+	const form = useForm<Character>({
+		resolver: zodResolver(CharacterCreateUpdateSchema),
+		defaultValues: characterToUpdate || {
+			characterName: '',
+			pictureUrl: '',
+			characterBackground: '',
+			level: 1,
+			stats: {
+				strength: 1,
+				dexterity: 1,
+				constitution: 1,
+				intelligence: 1,
+				wisdom: 1,
+				charisma: 1
+			},
+			hp: { current: 1, max: 1 },
+			inventory: [],
+			currentGold: 0,
+			conditions: [],
+			proficiencyBonus: 0,
+			raceName: 'Human',
+			speed: 30,
+			darkvision: 0,
+			traits: [],
+			languages: [],
+			className: 'Fighter',
+			savingThrows: [],
+			features: [],
+			proficiencySkills: []
+		}
+	});
 
-    return (
-    <FormProvider {...form}>
-        <form id="create-update-character-form" onSubmit={form.handleSubmit((data) => {
-            console.log('Form submitted:', data);
-        })}>
-            <div className="max-h-[60vh] overflow-y-auto pr-4 space-y-4 py-2 scrollbar-thin scrollbar-thumb-amber-600/50">
-            <FormInput name="characterName" label="Character Name" placeholder="Elessar I" />
-            <FormInput name="characterBackground" label="Character Background" placeholder="Noble from Gondor" />
-            <FormInput name="level" label="Level" type="number" />
-            <FormInput name="hp.max" label="Max HP" type="number" />
-            <FormInput name="currentGold" label="Current Gold" type="number" />
-            <FormInput name="proficiencyBonus" label="Proficiency Bonus" type="number" />
-            <FormSelect name="raceName" label="Race Name">
-                <SelectOptions options={POSSIBLE_RACES.map(race => race)} />
-            </FormSelect>
+	return (
+		<FormProvider {...form}>
+			<form
+				id="create-update-character-form"
+				onSubmit={form.handleSubmit(data => {
+					console.log('Form submitted:', data);
+				})}
+			>
+				<div className="scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 scrollbar-track-gray-100 max-h-[65vh] space-y-4 overflow-y-auto py-2 pr-4">
+					<Accordion
+						type="multiple"
+						defaultValue={['base-info']}
+						className="w-full"
+					>
+						<AccordionSection title="Base Info">
+							<FormInput
+								name="characterName"
+								label="Character Name"
+								placeholder="Elessar I"
+							/>
+							<FormInput
+								name="pictureUrl"
+								label="Picture URL"
+								type="text"
+								placeholder="https://some-image-url.com/image.png"
+							/>
+							<FormInput
+								name="characterBackground"
+								label="Character Background"
+								placeholder="Noble from Gondor"
+							/>
+							<FormSelect
+								name="raceName"
+								label="Race Name"
+								options={stringArrayToSelectOptions(
+									POSSIBLE_RACES.map(race => race)
+								)}
+							/>
 
-            <FormSelect name="className" label="Class Name">
-                <SelectOptions options={POSSIBLE_CLASSES.map(cls => cls)} />
-            </FormSelect>
+							<FormSelect
+								name="className"
+								label="Class Name"
+								options={stringArrayToSelectOptions(
+									POSSIBLE_CLASSES.map(cls => cls)
+								)}
+							/>
 
-            {/* TODO LABEL - stats*/}
-            <FormInput name="stats.strength" label="Strength" type="number" />
-            <FormInput name="stats.dexterity" label="Dexterity" type="number" />
-            <FormInput name="stats.constitution" label="Constitution" type="number" />
-            <FormInput name="stats.intelligence" label="Intelligence" type="number" />
-            <FormInput name="stats.wisdom" label="Wisdom" type="number" />
-            <FormInput name="stats.charisma" label="Charisma" type="number" />
-            <FormInput name="currentGold" label="Current Gold" type="number" />
-            
-            
-            </div>
-        </form>
-    </FormProvider>
-        );
+							<FormInput
+								name="alignment"
+								label="Alignment"
+								placeholder="Lawful Good"
+							/>
+						</AccordionSection>
+
+						<AccordionSection title="Current State">
+							<FormInput name="level" label="Level" type="number" />
+							<FormInput name="hp.max" label="Max HP" type="number" />
+							{characterToUpdate && (
+								<FormInput name="hp.current" label="Current HP" type="number" />
+							)}
+							<FormInput
+								name="currentGold"
+								label="Current Gold"
+								type="number"
+							/>
+							<FormInput
+								name="proficiencyBonus"
+								label="Proficiency Bonus"
+								type="number"
+							/>
+							<FormTextarea
+								name="conditions"
+								label="Conditions - Each on separate line"
+								placeholder="Enter any conditions affecting the character"
+							/>
+						</AccordionSection>
+
+						<AccordionSection title="Race Attributes">
+							<FormInput name="speed" label="Speed" type="number" />
+							<FormInput name="darkvision" label="Darkvision" type="number" />
+							<FormTextarea
+								name="languages"
+								label="Languages - Each on separate line"
+								placeholder="Enter known languages"
+							/>
+							<FormTextarea
+								name="traits"
+								label="Traits - Each on separate line"
+								placeholder="Enter character traits"
+							/>
+						</AccordionSection>
+						<AccordionSection title="Class bonuses">
+							<FormSelect
+								name="savingThrows"
+								label="Saving Throws"
+								placeholder="Enter saving throw proficiencies"
+								options={stringArrayToSelectOptions(
+									POSSIBLE_STATS.map(stat => stat)
+								)}
+								isMulti
+							/>
+							<FormSelect
+								name="proficiencySkills"
+								label="Proficiency Skills"
+								placeholder="Enter any proficiency skills"
+								options={stringArrayToSelectOptions(
+									POSSIBLE_SKILLS.map(skill => skill)
+								)}
+								isMulti
+							/>
+
+							<FormTextarea
+								name="features"
+								label="Features - Each on separate line"
+								placeholder="Enter character features"
+							/>
+						</AccordionSection>
+						<AccordionSection title="Stats">
+							<FormInput name="stats.strength" label="Strength" type="number" />
+							<FormInput
+								name="stats.dexterity"
+								label="Dexterity"
+								type="number"
+							/>
+							<FormInput
+								name="stats.constitution"
+								label="Constitution"
+								type="number"
+							/>
+							<FormInput
+								name="stats.intelligence"
+								label="Intelligence"
+								type="number"
+							/>
+							<FormInput name="stats.wisdom" label="Wisdom" type="number" />
+							<FormInput name="stats.charisma" label="Charisma" type="number" />
+						</AccordionSection>
+					</Accordion>
+				</div>
+			</form>
+		</FormProvider>
+	);
 };
 
-const SelectOptions = ({ options }: { options: string[] }) => {
-    return options.map((option) => (
-        <option key={option} value={option}>{option}</option>
-    ));
-}
+const AccordionSection = ({
+	title,
+	children
+}: {
+	title: string;
+	children: React.ReactNode;
+}) => (
+	<AccordionItem
+		value={title.toLowerCase().replace(/\s+/g, '-')}
+		className="border-border"
+	>
+		<AccordionTrigger className="text-primary font-bold tracking-wider uppercase hover:no-underline">
+			{title}
+		</AccordionTrigger>
+		<AccordionContent className="space-y-4 pt-2">{children}</AccordionContent>
+	</AccordionItem>
+);

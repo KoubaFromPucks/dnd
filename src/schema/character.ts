@@ -4,7 +4,7 @@ import { POSSIBLE_CLASSES } from './character-class';
 
 import { z } from 'zod';
 import { POSSIBLE_RACES, RaceName } from './character-race';
-import { SKILLS } from './skill';
+import { POSSIBLE_SKILLS } from './skill';
 
 export const CharacterCreateUpdateSchema = z.object({
 	pictureUrl: z.string().url().optional(),
@@ -15,21 +15,33 @@ export const CharacterCreateUpdateSchema = z.object({
 	hp: z.object({ current: z.number().min(0), max: z.number().min(1) }),
 	currentGold: z.number().min(0),
 	alignment: z.string().optional(),
-	conditions: z.array(z.string()),
+	conditions: z.preprocess(
+		val => (typeof val === 'string' ? val.split('\n').map(s => s.trim()) : val),
+		z.array(z.string())
+	),
 	proficiencyBonus: z.number().min(0),
 
 	// race
 	raceName: z.enum(POSSIBLE_RACES),
 	speed: z.number().min(0),
 	darkvision: z.number().min(0),
-	traits: z.array(z.string()),
-	languages: z.array(z.string()),
+	traits: z.preprocess(
+		val => (typeof val === 'string' ? val.split('\n').map(s => s.trim()) : val),
+		z.array(z.string())
+	),
+	languages: z.preprocess(
+		val => (typeof val === 'string' ? val.split('\n').map(s => s.trim()) : val),
+		z.array(z.string())
+	),
 
 	// speed
 	className: z.enum(POSSIBLE_CLASSES),
 	savingThrows: z.array(z.enum(POSSIBLE_STATS)),
-	features: z.array(z.string()),
-	proficiencySkills: z.array(z.enum(POSSIBLE_STATS))
+	features: z.preprocess(
+		val => (typeof val === 'string' ? val.split('\n').map(s => s.trim()) : val),
+		z.array(z.string())
+	),
+	proficiencySkills: z.array(z.enum(POSSIBLE_SKILLS))
 });
 
 export type Character = {
@@ -56,5 +68,5 @@ export type Character = {
 	className: (typeof POSSIBLE_CLASSES)[number];
 	savingThrows: (keyof Stats)[];
 	features: string[];
-	proficiencySkills: (typeof SKILLS)[number][];
+	proficiencySkills: (typeof POSSIBLE_SKILLS)[number][];
 };
