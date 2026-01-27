@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Character, CharacterCreateUpdateSchema } from '@/schema/character';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormInput, FormSelect } from '@/components/form';
-import { POSSIBLE_RACES } from '@/schema/character-race';
-import { POSSIBLE_CLASSES } from '@/schema/character-class';
+import { POSSIBLE_RACES, RACES } from '@/schema/character-race';
+import { CLASSES, POSSIBLE_CLASSES } from '@/schema/character-class';
 import { stringArrayToSelectOptions } from '@/lib/utils';
 import {
 	Accordion,
@@ -16,6 +16,7 @@ import { FormTextarea } from '@/components/form/form-textarea';
 import { POSSIBLE_STATS } from '@/schema/stats';
 import { POSSIBLE_SKILLS } from '@/schema/skill';
 import { forwardRef, useImperativeHandle } from 'react';
+import { getAC, getMaximalCarryWeight } from '@/utils/character-utils';
 
 export type CreateUpdateCharacterDialogHandle = {
 	submit: () => void;
@@ -24,13 +25,14 @@ export type CreateUpdateCharacterDialogHandle = {
 type CreateUpdateCharacterFormProps = {
 	characterToUpdate?: Character;
 	onSuccess?: (character: Character) => void;
+	onError?: (error: FieldErrors<Character>) => void;
 };
 
 // TODO edit
 export const CreateUpdateCharacterForm = forwardRef<
 	CreateUpdateCharacterDialogHandle,
 	CreateUpdateCharacterFormProps
->(({ characterToUpdate, onSuccess }, ref) => {
+>(({ characterToUpdate, onSuccess, onError }, ref) => {
 	const form = useForm<Character>({
 		resolver: zodResolver(CharacterCreateUpdateSchema),
 		defaultValues: characterToUpdate || {
@@ -65,20 +67,69 @@ export const CreateUpdateCharacterForm = forwardRef<
 		}
 	});
 
+	const { watch, setValue, handleSubmit } = form;
+	const selectedRace = watch('raceName');
+	const selectedClass = watch('className');
+	const isCreateMode = !characterToUpdate;
+	const selectedStrength = watch('stats.strength');
+	const selectedDexterity = watch('stats.dexterity');
+
 	useImperativeHandle(ref, () => ({
 		submit: () => {
-			form.handleSubmit(data => {
-				onSuccess?.(data);
-			})();
+			handleSubmit(
+				data => {
+					onSuccess?.(data);
+				},
+				error => {
+					console.log('Form submission error:', error);
+					onError?.(error);
+				}
+			)();
 		}
 	}));
 
+	if (isCreateMode) {
+		useEffect(() => {
+			const raceData = RACES[selectedRace];
+			if (raceData) {
+				setValue('speed', raceData.speed);
+				setValue('darkvision', raceData.darkvision);
+				setValue('traits', raceData.traits);
+				setValue('languages', raceData.languages);
+			}
+		}, [selectedRace, setValue]);
+
+		useEffect(() => {
+			const classData = CLASSES[selectedClass];
+			if (classData) {
+				setValue('savingThrows', classData.savingThrows);
+				setValue('features', classData.featureList[1] || []);
+			}
+		}, [selectedClass, setValue]);
+
+		useEffect(() => {
+			setValue(
+				'maxCarryWeight',
+				getMaximalCarryWeight({
+					stats: { strength: selectedStrength }
+				} as Character)
+			);
+		}, [selectedStrength, setValue]);
+
+		useEffect(() => {
+			setValue(
+				'ac',
+				getAC({
+					stats: { dexterity: selectedDexterity },
+					inventory: []
+				} as unknown as Character)
+			);
+		}, [selectedDexterity, setValue]);
+	}
+
 	return (
 		<FormProvider {...form}>
-			<form
-				id="create-update-character-form"
-				onSubmit={form.handleSubmit(() => {})}
-			>
+			<form id="create-update-character-form" onSubmit={handleSubmit(() => {})}>
 				<div className="scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 scrollbar-track-gray-100 max-h-[65vh] space-y-4 overflow-y-auto py-2 pr-4">
 					<Accordion
 						type="multiple"
@@ -90,17 +141,6 @@ export const CreateUpdateCharacterForm = forwardRef<
 								name="characterName"
 								label="Character Name"
 								placeholder="Elessar I"
-							/>
-							<FormInput
-								name="pictureUrl"
-								label="Picture URL"
-								type="text"
-								placeholder="https://some-image-url.com/image.png"
-							/>
-							<FormInput
-								name="characterBackground"
-								label="Character Background"
-								placeholder="Noble from Gondor"
 							/>
 							<FormSelect
 								name="raceName"
@@ -117,12 +157,44 @@ export const CreateUpdateCharacterForm = forwardRef<
 									POSSIBLE_CLASSES.map(cls => cls)
 								)}
 							/>
+							<FormInput
+								name="pictureUrl"
+								label="Picture URL"
+								type="text"
+								placeholder="https://some-image-url.com/image.png"
+							/>
+							<FormInput
+								name="characterBackground"
+								label="Character Background"
+								placeholder="Noble from Gondor"
+							/>
 
 							<FormInput
 								name="alignment"
 								label="Alignment"
 								placeholder="Lawful Good"
 							/>
+						</AccordionSection>
+
+						<AccordionSection title="Stats">
+							<FormInput name="stats.strength" label="Strength" type="number" />
+							<FormInput
+								name="stats.dexterity"
+								label="Dexterity"
+								type="number"
+							/>
+							<FormInput
+								name="stats.constitution"
+								label="Constitution"
+								type="number"
+							/>
+							<FormInput
+								name="stats.intelligence"
+								label="Intelligence"
+								type="number"
+							/>
+							<FormInput name="stats.wisdom" label="Wisdom" type="number" />
+							<FormInput name="stats.charisma" label="Charisma" type="number" />
 						</AccordionSection>
 
 						<AccordionSection title="Current State">
@@ -193,26 +265,6 @@ export const CreateUpdateCharacterForm = forwardRef<
 								label="Features - Each on separate line"
 								placeholder="Enter character features"
 							/>
-						</AccordionSection>
-						<AccordionSection title="Stats">
-							<FormInput name="stats.strength" label="Strength" type="number" />
-							<FormInput
-								name="stats.dexterity"
-								label="Dexterity"
-								type="number"
-							/>
-							<FormInput
-								name="stats.constitution"
-								label="Constitution"
-								type="number"
-							/>
-							<FormInput
-								name="stats.intelligence"
-								label="Intelligence"
-								type="number"
-							/>
-							<FormInput name="stats.wisdom" label="Wisdom" type="number" />
-							<FormInput name="stats.charisma" label="Charisma" type="number" />
 						</AccordionSection>
 					</Accordion>
 				</div>
