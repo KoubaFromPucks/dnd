@@ -47,7 +47,7 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 				<StateLabel
 					label="AC"
 					icon={<Shield className="text-blue-400" size={20} />}
-					value={getAC(character)}
+					value={character?.ac || 0}
 					variant="blue"
 				/>
 				<StateLabel
@@ -59,7 +59,7 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 				<StateLabel
 					label="Weight"
 					icon={<Weight className="text-gray-400" size={20} />}
-					value={`${getCurrentCarryWeight(character)} / ${getMaximalCarryWeight(character)}`}
+					value={`${getCurrentCarryWeight(character)} / ${character?.maxCarryWeight || 0}`}
 					variant="gray"
 				/>
 			</div>
