@@ -159,7 +159,7 @@ export const CreateUpdateCharacterForm = forwardRef<
 	return (
 		<FormProvider {...form}>
 			<form id="create-update-character-form" onSubmit={handleSubmit(() => {})}>
-				<div className="scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 scrollbar-track-gray-100 max-h-[65vh] space-y-4 overflow-y-auto py-2 pr-4">
+				<div className="scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 scrollbar-track-gray-100 max-h-[65vh] space-y-4 overflow-y-auto px-4 py-2">
 					<Accordion
 						type="multiple"
 						defaultValue={['base-info']}
@@ -318,6 +318,8 @@ const AccordionSection = ({
 		<AccordionTrigger className="text-primary font-bold tracking-wider uppercase hover:no-underline">
 			{title}
 		</AccordionTrigger>
-		<AccordionContent className="space-y-4 pt-2">{children}</AccordionContent>
+		<AccordionContent className="space-y-4 px-1 pt-2">
+			{children}
+		</AccordionContent>
 	</AccordionItem>
 );
