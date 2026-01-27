@@ -15,14 +15,21 @@ import {
 import { FormTextarea } from '@/components/form/form-textarea';
 import { POSSIBLE_STATS } from '@/schema/stats';
 import { POSSIBLE_SKILLS } from '@/schema/skill';
+import { forwardRef, useImperativeHandle } from 'react';
+
+export type CreateUpdateCharacterDialogHandle = {
+	submit: () => void;
+};
+
 type CreateUpdateCharacterFormProps = {
 	characterToUpdate?: Character;
 };
 
 // TODO edit
-export const CreateUpdateCharacterForm = ({
-	characterToUpdate
-}: CreateUpdateCharacterFormProps) => {
+export const CreateUpdateCharacterForm = forwardRef<
+	CreateUpdateCharacterDialogHandle,
+	CreateUpdateCharacterFormProps
+>(({ characterToUpdate }, ref) => {
 	const form = useForm<Character>({
 		resolver: zodResolver(CharacterCreateUpdateSchema),
 		defaultValues: characterToUpdate || {
@@ -54,6 +61,14 @@ export const CreateUpdateCharacterForm = ({
 			proficiencySkills: []
 		}
 	});
+
+	useImperativeHandle(ref, () => ({
+		submit: () => {
+			form.handleSubmit(data => {
+				console.log('Form submitted:', data);
+			})();
+		}
+	}));
 
 	return (
 		<FormProvider {...form}>
@@ -197,7 +212,9 @@ export const CreateUpdateCharacterForm = ({
 			</form>
 		</FormProvider>
 	);
-};
+});
+
+CreateUpdateCharacterForm.displayName = 'CreateUpdateCharacterForm';
 
 const AccordionSection = ({
 	title,

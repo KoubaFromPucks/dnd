@@ -7,14 +7,14 @@ import { POSSIBLE_RACES, RaceName } from './character-race';
 import { POSSIBLE_SKILLS } from './skill';
 
 export const CharacterCreateUpdateSchema = z.object({
-	pictureUrl: z.string().url().optional(),
+	pictureUrl: z.string().url().optional().or(z.literal('')),
 	characterBackground: z.string().min(1),
 	characterName: z.string().min(1),
 	level: z.number().min(1).max(20),
 	stats: statsSchema,
 	hp: z.object({ current: z.number().min(0), max: z.number().min(1) }),
 	currentGold: z.number().min(0),
-	alignment: z.string().optional(),
+	alignment: z.string().optional().or(z.literal('')),
 	conditions: z.preprocess(
 		val => (typeof val === 'string' ? val.split('\n').map(s => s.trim()) : val),
 		z.array(z.string())

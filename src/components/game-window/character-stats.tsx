@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Shield, Heart, Coins, Weight } from 'lucide-react';
+import { Shield, Heart, Coins, Weight, Edit2 } from 'lucide-react';
 import { Portrait } from '../portrait';
 import { Character } from '@/schema/character';
 import {
@@ -8,6 +8,7 @@ import {
 	getMaximalCarryWeight
 } from '@/utils/character-utils';
 import { CreateUpdateCharacterDialog } from '../ui/concrete-dialogs/create-update-character-dialog/create-update-character-dialog';
+import { Button } from '../basic-components';
 
 type StateVariant = 'red' | 'blue' | 'yellow' | 'gray';
 
@@ -75,7 +76,13 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 					<StatBlock key={stat} stat={stat.slice(0, 3)} value={val} />
 				))}
 			</div>
-			<CreateUpdateCharacterDialog></CreateUpdateCharacterDialog>
+			<CreateUpdateCharacterDialog
+				trigger={
+					<Button variant="ghost">
+						<Edit2 size={16} className="mr-3" /> Edit
+					</Button>
+				}
+			></CreateUpdateCharacterDialog>
 		</div>
 	);
 };

@@ -55,11 +55,7 @@ export const InventoryPanel = ({
 			</section>
 
 			<section className="mt-auto">
-				<PanelHeader
-					title="Quick Throws"
-					icon={<Dices size={16} />}
-					hidePlusButton
-				/>
+				<PanelHeader title="Quick Throws" icon={<Dices size={16} />} />
 
 				<DiceThrows />
 			</section>

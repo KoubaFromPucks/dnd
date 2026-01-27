@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode, useRef } from 'react';
 
 import { Button } from '@/components/basic-components/button';
 import {
@@ -11,25 +11,29 @@ import {
 	DialogTrigger
 } from '@/components/ui/dialog';
 import { useState } from 'react';
-import { Edit2 } from 'lucide-react';
-import { CreateUpdateCharacterForm } from './create-update-character-form';
+import {
+	CreateUpdateCharacterDialogHandle,
+	CreateUpdateCharacterForm
+} from './create-update-character-form';
+import { Character } from '@/schema/character';
 
 export const CreateUpdateCharacterDialog = ({
+	characterToUpdate,
 	isOpen,
-	onSave
+	onSave,
+	trigger
 }: {
+	characterToUpdate?: Character;
 	isOpen?: boolean;
-	onSave?: (name: string) => void;
+	onSave?: (character: Character) => void;
+	trigger: ReactNode;
 }) => {
-	const [characterName] = useState('');
+	const [open, setOpen] = useState(isOpen);
+	const formRef = useRef<CreateUpdateCharacterDialogHandle>(null);
 
 	return (
-		<Dialog open={isOpen}>
-			<DialogTrigger asChild>
-				<button className="mx-auto flex items-center justify-center gap-2 text-center text-slate-500 hover:text-amber-500">
-					<Edit2 size={16} /> Edit
-				</button>
-			</DialogTrigger>
+		<Dialog open={open}>
+			<DialogTrigger asChild>{trigger}</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>Create / Update Character</DialogTitle>
@@ -38,15 +42,24 @@ export const CreateUpdateCharacterDialog = ({
 					</DialogDescription>
 				</DialogHeader>
 
-				<CreateUpdateCharacterForm />
+				<CreateUpdateCharacterForm
+					ref={formRef}
+					characterToUpdate={characterToUpdate}
+				/>
 
 				<DialogFooter>
-					<Button variant="outline" onClick={() => {}}>
+					<Button
+						variant="outline"
+						onClick={() => {
+							setOpen(false);
+						}}
+					>
 						Cancel
 					</Button>
 					<Button
 						onClick={() => {
-							onSave?.(characterName);
+							formRef.current?.submit();
+							onSave?.(characterToUpdate!);
 						}}
 					>
 						Save
