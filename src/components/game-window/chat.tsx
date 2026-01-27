@@ -13,7 +13,7 @@ export const Chat = () => {
 	const handleSendMessage = () => {
 		if (!input.trim()) return;
 		setMessages([...messages, { role: 'user', text: input }]);
-		// Zde by následovalo volání API Gemini...
+		// TODO call API
 		setInput('');
 	};
 

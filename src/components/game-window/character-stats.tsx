@@ -7,7 +7,7 @@ import {
 	getCurrentCarryWeight,
 	getMaximalCarryWeight
 } from '@/utils/character-utils';
-import { CreateUpdateCharacterDialog } from '../ui/concrete-dialogs/create-update-character-dialog';
+import { CreateUpdateCharacterDialog } from '../ui/concrete-dialogs/create-update-character-dialog/create-update-character-dialog';
 
 type StateVariant = 'red' | 'blue' | 'yellow' | 'gray';
 
@@ -32,8 +32,7 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 				</h2>
 
 				<p className="text-sm text-slate-400 italic">
-					{character?.race.name} {character?.class.name} (Lvl {character?.level}
-					)
+					{character?.raceName} {character?.className} (Lvl {character?.level})
 				</p>
 			</div>
 

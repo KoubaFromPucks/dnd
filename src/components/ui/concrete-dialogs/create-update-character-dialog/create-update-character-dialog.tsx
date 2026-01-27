@@ -15,17 +15,15 @@ import { Edit2 } from 'lucide-react';
 
 export const CreateUpdateCharacterDialog = ({
 	isOpen,
-	onClose,
 	onSave
 }: {
 	isOpen?: boolean;
-	onClose?: () => void;
 	onSave?: (name: string) => void;
 }) => {
-	const [characterName, setCharacterName] = useState('');
-    
+	const [characterName] = useState('');
+
 	return (
-		<Dialog open={isOpen} onOpenChange={onClose}>
+		<Dialog open={isOpen}>
 			<DialogTrigger asChild>
 				<button className="mx-auto flex items-center justify-center gap-2 text-center text-slate-500 hover:text-amber-500">
 					<Edit2 size={16} /> Edit
@@ -42,10 +40,16 @@ export const CreateUpdateCharacterDialog = ({
 					<div className="grid gap-2"></div>
 				</div>
 				<DialogFooter>
-					<Button variant="outline" onClick={onClose}>
+					<Button variant="outline" onClick={() => {}}>
 						Zrušit
 					</Button>
-					<Button onClick={() => {onSave?.(characterName)}}>Uložit</Button>
+					<Button
+						onClick={() => {
+							onSave?.(characterName);
+						}}
+					>
+						Uložit
+					</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
