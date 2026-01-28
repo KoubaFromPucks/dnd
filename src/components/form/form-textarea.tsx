@@ -2,18 +2,22 @@ import { useFormContext, get } from 'react-hook-form';
 import React from 'react';
 
 import {
-	BasicInput,
-	type BasicInputProps
-} from '@/components/basic-components/basic-input';
+	BasicTextarea,
+	type BasicTextareaProps
+} from '@/components/basic-components/basic-textarea';
 import { cn } from '@/lib/utils';
 import { InputLabelDiv } from './input-label-div';
 
-type FormInputProps = BasicInputProps & {
+type FormTextareaProps = BasicTextareaProps & {
 	label: string;
 	name: string;
 };
 
-export const FormInput = ({ name, label, ...inputProps }: FormInputProps) => {
+export const FormTextarea = ({
+	name,
+	label,
+	...textareaProps
+}: FormTextareaProps) => {
 	const {
 		register,
 		formState: { errors }
@@ -25,17 +29,15 @@ export const FormInput = ({ name, label, ...inputProps }: FormInputProps) => {
 		<label htmlFor={name}>
 			<InputLabelDiv label={label} />
 
-			<BasicInput
-				{...inputProps}
-				{...register(name, {
-					valueAsNumber: inputProps.type === 'number'
-				})}
+			<BasicTextarea
+				{...textareaProps}
+				{...register(name)}
 				id={name}
-				className={cn(error && 'border-red-600', inputProps.className)}
+				className={cn(error && 'border-red-600', textareaProps.className)}
 			/>
 
 			{error && (
-				<span className="mt-1 text-sm text-red-600">
+				<span className="mt-1 ml-1 text-sm text-red-600">
 					{error?.message?.toString()}
 				</span>
 			)}

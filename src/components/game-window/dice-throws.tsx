@@ -29,7 +29,7 @@ export const DiceThrows = () => {
 			</div>
 
 			<div className="mt-4 text-center text-2xl font-bold text-amber-500">
-				Výsledek hodu: {throwResult ?? '-'}
+				Result: {throwResult ?? '-'}
 			</div>
 			<div className="mt-4 text-center text-lg text-gray-400">
 				{history.join(', ')}

@@ -7,13 +7,13 @@ export const Chat = () => {
 	const [messages, setMessages] = useState([
 		{
 			role: 'dm',
-			text: 'Vstupujete do temné jeskyně. Vzduch je cítit vlhkostí a hnilobou. Co uděláte?'
+			text: 'You enter a dark cave. The air smells of dampness and decay. What do you do?'
 		}
 	]);
 	const handleSendMessage = () => {
 		if (!input.trim()) return;
 		setMessages([...messages, { role: 'user', text: input }]);
-		// Zde by následovalo volání API Gemini...
+		// TODO call API
 		setInput('');
 	};
 
@@ -23,7 +23,6 @@ export const Chat = () => {
 				<h1 className="flex items-center gap-2 font-serif text-xl tracking-widest text-amber-600 uppercase">
 					<Zap size={20} /> Dungeon Master AI
 				</h1>
-				<div className="text-sm text-slate-500">Lokace: Zapomenuté doly</div>
 			</header>
 
 			<div className="flex-1 space-y-6 overflow-y-auto bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] p-6">
@@ -51,11 +50,11 @@ export const Chat = () => {
 						value={input}
 						onChange={e => setInput(e.target.value)}
 						onKeyDown={e => e.key === 'Enter' && handleSendMessage()}
-						placeholder="Napište svou akci (např. Prohledám truhlu...)"
+						placeholder="Type your action (e.g., Search the chest...)"
 						className="flex-1 rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 transition-colors focus:border-amber-600 focus:outline-none"
 					/>
 					<Button onClick={handleSendMessage} variant="default" size="default">
-						ODESLAT
+						SUBMIT
 					</Button>
 				</div>
 			</footer>

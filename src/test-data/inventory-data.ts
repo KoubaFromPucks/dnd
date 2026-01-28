@@ -13,8 +13,7 @@ export const ragnarInventory: Item[] = [
 		passiveEffects: {},
 		activeEffectDescription: 'Seknutí nepřítele.',
 		effectDuration: 0,
-		rarity: 'common',
-		damage: { throwsCount: 1, diceSides: 8, scalingStat: 'strength' }
+		rarity: 'common'
 	},
 	{
 		name: 'Kroužková zbroj',
@@ -76,8 +75,7 @@ export const elaraInventory: Item[] = [
 		passiveEffects: {},
 		activeEffectDescription: 'Bodnutí slabého místa.',
 		effectDuration: 0,
-		rarity: 'common',
-		damage: { throwsCount: 1, diceSides: 8, scalingStat: 'dexterity' }
+		rarity: 'common'
 	},
 	{
 		name: 'Krátký luk',
@@ -91,8 +89,7 @@ export const elaraInventory: Item[] = [
 		passiveEffects: {},
 		activeEffectDescription: 'Střelba z dálky.',
 		effectDuration: 0,
-		rarity: 'common',
-		damage: { throwsCount: 1, diceSides: 6, scalingStat: 'dexterity' }
+		rarity: 'common'
 	},
 	{
 		name: 'Kožená zbroj',
@@ -139,8 +136,7 @@ export const zephyrInventory: Item[] = [
 		passiveEffects: {},
 		activeEffectDescription: 'Úder holí.',
 		effectDuration: 0,
-		rarity: 'common',
-		damage: { throwsCount: 1, diceSides: 6, scalingStat: 'strength' }
+		rarity: 'common'
 	},
 	{
 		name: 'Kniha kouzel',

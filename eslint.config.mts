@@ -9,7 +9,17 @@ export default defineConfig([
     tseslint.configs.recommended,
     pluginReact.configs.flat.recommended,
     // Disable `react/prop-types` in TypeScript files because TS provides typings
-    { files: ["src/**/*.{ts,tsx,mts,cts}"], rules: { "react/prop-types": "off" } },
+    { files: ["src/**/*.{ts,tsx,mts,cts}"], rules: { 
+        "react/prop-types": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            { 
+                "argsIgnorePattern": "^_", 
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
+            }
+        ]
+    } },
     {
         settings: {
             react: {

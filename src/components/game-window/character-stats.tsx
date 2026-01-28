@@ -2,11 +2,9 @@ import React, { ReactNode } from 'react';
 import { Shield, Heart, Coins, Weight, Edit2 } from 'lucide-react';
 import { Portrait } from '../portrait';
 import { Character } from '@/schema/character';
-import {
-	getAC,
-	getCurrentCarryWeight,
-	getMaximalCarryWeight
-} from '@/utils/character-utils';
+import { getCurrentCarryWeight } from '@/utils/character-utils';
+import { CreateUpdateCharacterDialog } from '../ui/concrete-dialogs/create-update-character-dialog/create-update-character-dialog';
+import { Button } from '../basic-components';
 
 type StateVariant = 'red' | 'blue' | 'yellow' | 'gray';
 
@@ -19,9 +17,13 @@ const variantStyles: Record<StateVariant, string> = {
 
 type CharacterStatsProps = {
 	character?: Character;
+	onCharacterUpdate?: (character: Character) => void;
 };
 
-export const CharacterStats = ({ character }: CharacterStatsProps) => {
+export const CharacterStats = ({
+	character,
+	onCharacterUpdate
+}: CharacterStatsProps) => {
 	return (
 		<div className="flex flex-col gap-6 rounded-b-xl border-x border-b border-slate-800 bg-slate-800/30 p-2">
 			<div className="text-center">
@@ -31,8 +33,7 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 				</h2>
 
 				<p className="text-sm text-slate-400 italic">
-					{character?.race.name} {character?.class.name} (Lvl {character?.level}
-					)
+					{character?.raceName} {character?.className} (Lvl {character?.level})
 				</p>
 			</div>
 
@@ -46,7 +47,7 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 				<StateLabel
 					label="AC"
 					icon={<Shield className="text-blue-400" size={20} />}
-					value={getAC(character)}
+					value={character?.ac || 0}
 					variant="blue"
 				/>
 				<StateLabel
@@ -58,7 +59,7 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 				<StateLabel
 					label="Weight"
 					icon={<Weight className="text-gray-400" size={20} />}
-					value={`${getCurrentCarryWeight(character)} / ${getMaximalCarryWeight(character)}`}
+					value={`${getCurrentCarryWeight(character)} / ${character?.maxCarryWeight || 0}`}
 					variant="gray"
 				/>
 			</div>
@@ -75,9 +76,15 @@ export const CharacterStats = ({ character }: CharacterStatsProps) => {
 					<StatBlock key={stat} stat={stat.slice(0, 3)} value={val} />
 				))}
 			</div>
-			<button className="mx-auto flex items-center justify-center gap-2 text-center text-slate-500 hover:text-amber-500">
-				<Edit2 size={16} /> Edit
-			</button>
+			<CreateUpdateCharacterDialog
+				trigger={
+					<Button variant="ghost">
+						<Edit2 size={16} className="mr-3" /> Edit
+					</Button>
+				}
+				characterToUpdate={character}
+				onSave={onCharacterUpdate}
+			/>
 		</div>
 	);
 };
