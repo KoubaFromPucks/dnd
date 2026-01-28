@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { stringToArraySchema } from './string-to-array-schema';
-import { optionalStatsSchema } from './stats';
+import { statsSchema } from './stats';
 
 export const POSSIBLE_ITEM_TYPES = [
 	'melee weapon',
@@ -27,17 +27,19 @@ export const ItemSchema = z.object({
 	name: z.string().min(1),
 	itemType: z.enum(POSSIBLE_ITEM_TYPES),
 	useType: z.enum(POSSIBLE_USE_TYPES),
-	description: z.string().optional().default(''),
-	weight: z.number().min(0),
-	equipped: z.boolean(),
-	cost: z.number().min(0),
-	quantity: z.number().min(1),
-	passiveEffects: stringToArraySchema,
-	activeEffectDescription: stringToArraySchema,
-	effectDuration: z.number().min(0),
 	rarity: z.enum(POSSIBLE_RARITIES),
+	description: z.string().optional().default(''),
+	quantity: z.number().min(1),
+	equipped: z.boolean().default(false),
+
+	weight: z.number().min(0),
+	cost: z.number().min(0),
 	armorClassBonus: z.number().optional(),
-	statsBonuses: optionalStatsSchema
+
+	statsBonuses: statsSchema,
+
+	passiveEffects: stringToArraySchema,
+	activeEffectDescription: stringToArraySchema
 });
 
 export type Item = z.infer<typeof ItemSchema>;

@@ -6,8 +6,9 @@ import { DiceThrows } from './dice-throws';
 import { Button } from '../basic-components/button';
 import { cn } from '@/lib/utils';
 import { Item } from '@/schema/item';
-import { IconButton } from '../basic-components';
+import { IconButton, PlusButton } from '../basic-components';
 import { ConfirmDialog } from '../ui';
+import { CreateUpdateItemDialog } from '../ui/concrete-dialogs/create-update-item-dialog/create-update-item-dialog';
 
 export const InventoryPanel = ({
 	character,
@@ -19,7 +20,18 @@ export const InventoryPanel = ({
 	return (
 		<aside className="flex h-full w-72 flex-col gap-6 border-l border-slate-800 bg-slate-900 p-6">
 			<section className="overflow-y-auto">
-				<PanelHeader title="Inventory" icon={<Backpack size={16} />} />
+				<PanelHeader
+					title="Inventory"
+					icon={<Backpack size={16} />}
+					actionButton={
+						<CreateUpdateItemDialog
+							trigger={<PlusButton />}
+							onSave={item => {
+								onInventoryChange([...character!.inventory, item]);
+							}}
+						/>
+					}
+				/>
 
 				<div className="space-y-2">
 					{character?.inventory.map(item => (

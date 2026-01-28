@@ -2,7 +2,7 @@ import React, { useEffect, forwardRef, useImperativeHandle } from 'react';
 import {
 	Character,
 	CharacterCreateUpdateInput,
-	CharacterCreateUpdateSchema
+	CharacterSchema
 } from '@/schema/character';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,12 +10,8 @@ import { FormInput, FormSelect } from '@/components/form';
 import { POSSIBLE_RACES, RACES } from '@/schema/character-race';
 import { CLASSES, POSSIBLE_CLASSES } from '@/schema/character-class';
 import { stringArrayToSelectOptions } from '@/lib/utils';
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger
-} from '../../accordion';
+import { Accordion } from '../../accordion';
+import { AccordionSection } from '@/components/ui/accordion-section';
 import { FormTextarea } from '@/components/form/form-textarea';
 import { POSSIBLE_STATS } from '@/schema/stats';
 import { POSSIBLE_SKILLS } from '@/schema/skill';
@@ -63,7 +59,7 @@ export const CreateUpdateCharacterForm = forwardRef<
 	CreateUpdateCharacterFormProps
 >(({ characterToUpdate, onSuccess, onError }, ref) => {
 	const form = useForm<CharacterCreateUpdateInput, Character>({
-		resolver: zodResolver(CharacterCreateUpdateSchema),
+		resolver: zodResolver(CharacterSchema),
 		defaultValues: prepareDataForForm(characterToUpdate) || {
 			id: crypto.randomUUID(),
 			characterName: '',
@@ -308,23 +304,3 @@ export const CreateUpdateCharacterForm = forwardRef<
 });
 
 CreateUpdateCharacterForm.displayName = 'CreateUpdateCharacterForm';
-
-const AccordionSection = ({
-	title,
-	children
-}: {
-	title: string;
-	children: React.ReactNode;
-}) => (
-	<AccordionItem
-		value={title.toLowerCase().replace(/\s+/g, '-')}
-		className="border-border"
-	>
-		<AccordionTrigger className="text-primary font-bold tracking-wider uppercase hover:no-underline">
-			{title}
-		</AccordionTrigger>
-		<AccordionContent className="space-y-4 px-1 pt-2">
-			{children}
-		</AccordionContent>
-	</AccordionItem>
-);

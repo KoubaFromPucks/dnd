@@ -7,7 +7,7 @@ import { POSSIBLE_RACES } from './character-race';
 import { POSSIBLE_SKILLS } from './skill';
 import { stringToArraySchema } from './string-to-array-schema';
 
-export const CharacterCreateUpdateSchema = z.object({
+export const CharacterSchema = z.object({
 	id: z.string().uuid(),
 	pictureUrl: z.string().url().optional().or(z.literal('')),
 	characterBackground: z.string().optional().or(z.literal('')),
@@ -37,8 +37,6 @@ export const CharacterCreateUpdateSchema = z.object({
 	proficiencySkills: z.array(z.enum(POSSIBLE_SKILLS))
 });
 
-export type Character = z.output<typeof CharacterCreateUpdateSchema>;
+export type Character = z.output<typeof CharacterSchema>;
 
-export type CharacterCreateUpdateInput = z.input<
-	typeof CharacterCreateUpdateSchema
->;
+export type CharacterCreateUpdateInput = z.input<typeof CharacterSchema>;

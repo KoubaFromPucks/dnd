@@ -12,9 +12,15 @@ export const ragnarInventory: Item[] = [
 		quantity: 1,
 		passiveEffects: [],
 		activeEffectDescription: ['Seknutí nepřítele.'],
-		effectDuration: 0,
 		rarity: 'common',
-		statsBonuses: {}
+		statsBonuses: {
+			strength: 1,
+			charisma: -1,
+			constitution: 1,
+			dexterity: -1,
+			intelligence: -1,
+			wisdom: 0
+		}
 	},
 	{
 		name: 'Kroužková zbroj',
@@ -27,26 +33,38 @@ export const ragnarInventory: Item[] = [
 		quantity: 1,
 		passiveEffects: [],
 		activeEffectDescription: [],
-		effectDuration: 0,
 		rarity: 'common',
 		armorClassBonus: 6,
-		statsBonuses: {}
+		statsBonuses: {
+			strength: -1,
+			constitution: 1,
+			dexterity: -1,
+			charisma: -1,
+			intelligence: 0,
+			wisdom: 0
+		}
 	},
 	{
-		name: 'Velký štít',
+		name: 'Dragqueen',
 		itemType: 'shield',
 		useType: 'equippable',
-		description: 'Dubový štít okovaný železem.',
+		description: 'Štít z dračí kůže',
 		weight: 6,
 		equipped: true,
 		cost: 10,
 		quantity: 1,
-		passiveEffects: [],
-		activeEffectDescription: ['Zvyšuje obranu.'],
-		effectDuration: 0,
+		passiveEffects: ['Imunita proti ohni'],
+		activeEffectDescription: [],
 		rarity: 'common',
 		armorClassBonus: 2,
-		statsBonuses: {}
+		statsBonuses: {
+			strength: -1,
+			dexterity: -1,
+			constitution: 0,
+			intelligence: 0,
+			wisdom: 0,
+			charisma: 0
+		}
 	},
 	{
 		name: 'Malý štít',
@@ -59,10 +77,16 @@ export const ragnarInventory: Item[] = [
 		quantity: 1,
 		passiveEffects: [],
 		activeEffectDescription: ['Zvyšuje obranu.'],
-		effectDuration: 0,
 		rarity: 'common',
 		armorClassBonus: 1,
-		statsBonuses: {}
+		statsBonuses: {
+			strength: 0,
+			dexterity: 0,
+			constitution: 0,
+			intelligence: 0,
+			wisdom: 0,
+			charisma: 0
+		}
 	}
 ];
 
@@ -78,9 +102,15 @@ export const elaraInventory: Item[] = [
 		quantity: 1,
 		passiveEffects: [],
 		activeEffectDescription: ['Bodnutí slabého místa.'],
-		effectDuration: 0,
 		rarity: 'common',
-		statsBonuses: {}
+		statsBonuses: {
+			strength: 0,
+			dexterity: 1,
+			constitution: 0,
+			intelligence: 0,
+			wisdom: 0,
+			charisma: 0
+		}
 	},
 	{
 		name: 'Krátký luk',
@@ -93,9 +123,15 @@ export const elaraInventory: Item[] = [
 		quantity: 1,
 		passiveEffects: [],
 		activeEffectDescription: ['Střelba z dálky.'],
-		effectDuration: 0,
 		rarity: 'common',
-		statsBonuses: {}
+		statsBonuses: {
+			strength: 0,
+			dexterity: 1,
+			constitution: 0,
+			intelligence: 0,
+			wisdom: 0,
+			charisma: 0
+		}
 	},
 	{
 		name: 'Kožená zbroj',
@@ -107,11 +143,17 @@ export const elaraInventory: Item[] = [
 		cost: 10,
 		quantity: 1,
 		passiveEffects: [],
-		activeEffectDescription: [''],
-		effectDuration: 0,
+		activeEffectDescription: [],
 		rarity: 'common',
 		armorClassBonus: 1,
-		statsBonuses: {}
+		statsBonuses: {
+			dexterity: 1,
+			strength: 0,
+			constitution: 0,
+			intelligence: 0,
+			wisdom: 0,
+			charisma: 0
+		}
 	},
 	{
 		name: 'Zlodějské náčiní',
@@ -123,10 +165,16 @@ export const elaraInventory: Item[] = [
 		cost: 25,
 		quantity: 1,
 		passiveEffects: [],
-		activeEffectDescription: ['Páčení zámků nebo zneškodňování pastí.'],
-		effectDuration: 0,
+		activeEffectDescription: ['Usnadňuje otevírání zámků'],
 		rarity: 'common',
-		statsBonuses: { dexterity: 1 }
+		statsBonuses: {
+			dexterity: 1,
+			strength: 0,
+			constitution: 0,
+			intelligence: 0,
+			wisdom: 0,
+			charisma: 0
+		}
 	}
 ];
 
@@ -143,9 +191,15 @@ export const zephyrInventory: Item[] = [
 		quantity: 1,
 		passiveEffects: [],
 		activeEffectDescription: ['Úder holí.'],
-		effectDuration: 0,
 		rarity: 'common',
-		statsBonuses: {}
+		statsBonuses: {
+			intelligence: 1,
+			strength: 0,
+			dexterity: 0,
+			constitution: 0,
+			wisdom: 0,
+			charisma: 0
+		}
 	},
 	{
 		name: 'Kniha kouzel',
@@ -158,9 +212,15 @@ export const zephyrInventory: Item[] = [
 		quantity: 1,
 		passiveEffects: [],
 		activeEffectDescription: ['Studium kouzel'],
-		effectDuration: 0,
 		rarity: 'uncommon',
-		statsBonuses: { intelligence: 1 }
+		statsBonuses: {
+			intelligence: 1,
+			strength: 0,
+			dexterity: 0,
+			constitution: 0,
+			wisdom: 0,
+			charisma: 0
+		}
 	},
 	{
 		name: 'Lektvar léčení',
@@ -173,8 +233,14 @@ export const zephyrInventory: Item[] = [
 		quantity: 2,
 		passiveEffects: [],
 		activeEffectDescription: ['Okamžitě vyléčí 2d4 + 2 životů.'],
-		effectDuration: 1,
 		rarity: 'common',
-		statsBonuses: {}
+		statsBonuses: {
+			intelligence: 0,
+			strength: 0,
+			dexterity: 0,
+			constitution: 0,
+			wisdom: 0,
+			charisma: 0
+		}
 	}
 ];
