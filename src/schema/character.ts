@@ -5,22 +5,7 @@ import { POSSIBLE_CLASSES } from './character-class';
 import { z } from 'zod';
 import { POSSIBLE_RACES } from './character-race';
 import { POSSIBLE_SKILLS } from './skill';
-
-export const ARRAY_STRING_SEPARATOR = '\n';
-
-export const stringToArray = (input: string) =>
-	input
-		.split(ARRAY_STRING_SEPARATOR)
-		.map(str => str.trim())
-		.filter(Boolean);
-
-export const arrayToString = (input: string[]) =>
-	input.join(ARRAY_STRING_SEPARATOR);
-
-const stringToArraySchema = z
-	.string()
-	.transform(stringToArray)
-	.pipe(z.string().array());
+import { stringToArraySchema } from './string-to-array-schema';
 
 export const CharacterCreateUpdateSchema = z.object({
 	id: z.string().uuid(),
