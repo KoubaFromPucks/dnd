@@ -15,13 +15,15 @@ type ConfirmDialogProps = {
 	title: string;
 	text: string;
 	onConfirm: () => void;
+	confirmButtonVariant?: 'default' | 'destructive';
 };
 
 export const ConfirmDialog = ({
 	trigger,
 	title,
 	text,
-	onConfirm
+	onConfirm,
+	confirmButtonVariant = 'default'
 }: ConfirmDialogProps) => {
 	const [open, setOpen] = useState(false);
 
@@ -38,6 +40,7 @@ export const ConfirmDialog = ({
 						Cancel
 					</Button>
 					<Button
+						variant={confirmButtonVariant}
 						onClick={() => {
 							setOpen(false);
 							onConfirm();
