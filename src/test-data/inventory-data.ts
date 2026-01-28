@@ -10,10 +10,11 @@ export const ragnarInventory: Item[] = [
 		equipped: true,
 		cost: 15,
 		quantity: 1,
-		passiveEffects: {},
-		activeEffectDescription: 'Seknutí nepřítele.',
+		passiveEffects: [],
+		activeEffectDescription: ['Seknutí nepřítele.'],
 		effectDuration: 0,
-		rarity: 'common'
+		rarity: 'common',
+		statsBonuses: {}
 	},
 	{
 		name: 'Kroužková zbroj',
@@ -24,11 +25,12 @@ export const ragnarInventory: Item[] = [
 		equipped: true,
 		cost: 75,
 		quantity: 1,
-		passiveEffects: {},
-		activeEffectDescription: '',
+		passiveEffects: [],
+		activeEffectDescription: [],
 		effectDuration: 0,
 		rarity: 'common',
-		armorClassBonus: 6
+		armorClassBonus: 6,
+		statsBonuses: {}
 	},
 	{
 		name: 'Velký štít',
@@ -39,11 +41,12 @@ export const ragnarInventory: Item[] = [
 		equipped: true,
 		cost: 10,
 		quantity: 1,
-		passiveEffects: {},
-		activeEffectDescription: 'Zvyšuje obranu.',
+		passiveEffects: [],
+		activeEffectDescription: ['Zvyšuje obranu.'],
 		effectDuration: 0,
 		rarity: 'common',
-		armorClassBonus: 2
+		armorClassBonus: 2,
+		statsBonuses: {}
 	},
 	{
 		name: 'Malý štít',
@@ -54,11 +57,12 @@ export const ragnarInventory: Item[] = [
 		equipped: false,
 		cost: 10,
 		quantity: 1,
-		passiveEffects: {},
-		activeEffectDescription: 'Zvyšuje obranu.',
+		passiveEffects: [],
+		activeEffectDescription: ['Zvyšuje obranu.'],
 		effectDuration: 0,
 		rarity: 'common',
-		armorClassBonus: 1
+		armorClassBonus: 1,
+		statsBonuses: {}
 	}
 ];
 
@@ -72,10 +76,11 @@ export const elaraInventory: Item[] = [
 		equipped: true,
 		cost: 25,
 		quantity: 1,
-		passiveEffects: {},
-		activeEffectDescription: 'Bodnutí slabého místa.',
+		passiveEffects: [],
+		activeEffectDescription: ['Bodnutí slabého místa.'],
 		effectDuration: 0,
-		rarity: 'common'
+		rarity: 'common',
+		statsBonuses: {}
 	},
 	{
 		name: 'Krátký luk',
@@ -86,10 +91,11 @@ export const elaraInventory: Item[] = [
 		equipped: false,
 		cost: 25,
 		quantity: 1,
-		passiveEffects: {},
-		activeEffectDescription: 'Střelba z dálky.',
+		passiveEffects: [],
+		activeEffectDescription: ['Střelba z dálky.'],
 		effectDuration: 0,
-		rarity: 'common'
+		rarity: 'common',
+		statsBonuses: {}
 	},
 	{
 		name: 'Kožená zbroj',
@@ -100,11 +106,12 @@ export const elaraInventory: Item[] = [
 		equipped: true,
 		cost: 10,
 		quantity: 1,
-		passiveEffects: {},
-		activeEffectDescription: '',
+		passiveEffects: [],
+		activeEffectDescription: [''],
 		effectDuration: 0,
 		rarity: 'common',
-		armorClassBonus: 1
+		armorClassBonus: 1,
+		statsBonuses: {}
 	},
 	{
 		name: 'Zlodějské náčiní',
@@ -115,10 +122,11 @@ export const elaraInventory: Item[] = [
 		equipped: false,
 		cost: 25,
 		quantity: 1,
-		passiveEffects: { dexterity: 1 },
-		activeEffectDescription: 'Páčení zámků nebo zneškodňování pastí.',
+		passiveEffects: [],
+		activeEffectDescription: ['Páčení zámků nebo zneškodňování pastí.'],
 		effectDuration: 0,
-		rarity: 'common'
+		rarity: 'common',
+		statsBonuses: { dexterity: 1 }
 	}
 ];
 
@@ -133,10 +141,11 @@ export const zephyrInventory: Item[] = [
 		equipped: true,
 		cost: 5,
 		quantity: 1,
-		passiveEffects: {},
-		activeEffectDescription: 'Úder holí.',
+		passiveEffects: [],
+		activeEffectDescription: ['Úder holí.'],
 		effectDuration: 0,
-		rarity: 'common'
+		rarity: 'common',
+		statsBonuses: {}
 	},
 	{
 		name: 'Kniha kouzel',
@@ -147,10 +156,11 @@ export const zephyrInventory: Item[] = [
 		equipped: true,
 		cost: 50,
 		quantity: 1,
-		passiveEffects: { intelligence: 1 },
-		activeEffectDescription: 'Studium kouzel.',
+		passiveEffects: [],
+		activeEffectDescription: ['Studium kouzel'],
 		effectDuration: 0,
-		rarity: 'uncommon'
+		rarity: 'uncommon',
+		statsBonuses: { intelligence: 1 }
 	},
 	{
 		name: 'Lektvar léčení',
@@ -161,9 +171,10 @@ export const zephyrInventory: Item[] = [
 		equipped: false,
 		cost: 50,
 		quantity: 2,
-		passiveEffects: {},
-		activeEffectDescription: 'Okamžitě vyléčí 2d4 + 2 životů.',
+		passiveEffects: [],
+		activeEffectDescription: ['Okamžitě vyléčí 2d4 + 2 životů.'],
 		effectDuration: 1,
-		rarity: 'common'
+		rarity: 'common',
+		statsBonuses: {}
 	}
 ];

@@ -15,7 +15,7 @@ export const CharacterCreateUpdateSchema = z.object({
 	level: z.number().min(1).max(20),
 	stats: statsSchema,
 	hp: z.object({ current: z.number().min(0), max: z.number().min(1) }),
-	inventory: ItemSchema.array(),
+	inventory: z.array(ItemSchema),
 	currentGold: z.number().min(0),
 	alignment: z.string().optional().or(z.literal('')),
 	conditions: stringToArraySchema,

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { stringToArraySchema } from './string-to-array-schema';
 import { optionalStatsSchema } from './stats';
 
 export const POSSIBLE_ITEM_TYPES = [
@@ -31,11 +32,14 @@ export const ItemSchema = z.object({
 	equipped: z.boolean(),
 	cost: z.number().min(0),
 	quantity: z.number().min(1),
-	passiveEffects: optionalStatsSchema,
-	activeEffectDescription: z.string().optional().default(''),
+	passiveEffects: stringToArraySchema,
+	activeEffectDescription: stringToArraySchema,
 	effectDuration: z.number().min(0),
 	rarity: z.enum(POSSIBLE_RARITIES),
-	armorClassBonus: z.number().optional()
+	armorClassBonus: z.number().optional(),
+	statsBonuses: optionalStatsSchema
 });
 
 export type Item = z.infer<typeof ItemSchema>;
+
+export type ItemCreateUpdateInput = z.input<typeof ItemSchema>;

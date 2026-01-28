@@ -1,6 +1,5 @@
 import React, { useEffect, forwardRef, useImperativeHandle } from 'react';
 import {
-	arrayToString,
 	Character,
 	CharacterCreateUpdateInput,
 	CharacterCreateUpdateSchema
@@ -21,7 +20,10 @@ import { FormTextarea } from '@/components/form/form-textarea';
 import { POSSIBLE_STATS } from '@/schema/stats';
 import { POSSIBLE_SKILLS } from '@/schema/skill';
 import { getAC, getMaximalCarryWeight } from '@/utils/character-utils';
-import { ARRAY_STRING_SEPARATOR } from '@/schema/character';
+import {
+	ARRAY_STRING_SEPARATOR,
+	arrayToString
+} from '@/schema/string-to-array-schema';
 
 export type CreateUpdateCharacterDialogHandle = {
 	submit: () => void;
@@ -40,10 +42,19 @@ const prepareDataForForm = (
 
 	return {
 		...character,
-		conditions: character.conditions?.join(ARRAY_STRING_SEPARATOR) ?? '',
-		traits: character.traits?.join(ARRAY_STRING_SEPARATOR) ?? '',
-		languages: character.languages?.join(ARRAY_STRING_SEPARATOR) ?? '',
-		features: character.features?.join(ARRAY_STRING_SEPARATOR) ?? ''
+		conditions: character.conditions.join(ARRAY_STRING_SEPARATOR),
+		traits: character.traits.join(ARRAY_STRING_SEPARATOR),
+		languages: character.languages.join(ARRAY_STRING_SEPARATOR),
+		features: character.features.join(ARRAY_STRING_SEPARATOR),
+		inventory: character.inventory.map(item => ({
+			...item,
+			passiveEffects: Array.isArray(item.passiveEffects)
+				? item.passiveEffects.join(ARRAY_STRING_SEPARATOR)
+				: item.passiveEffects,
+			activeEffectDescription: Array.isArray(item.activeEffectDescription)
+				? item.activeEffectDescription.join(ARRAY_STRING_SEPARATOR)
+				: item.activeEffectDescription
+		}))
 	} as CharacterCreateUpdateInput;
 };
 
@@ -51,7 +62,7 @@ export const CreateUpdateCharacterForm = forwardRef<
 	CreateUpdateCharacterDialogHandle,
 	CreateUpdateCharacterFormProps
 >(({ characterToUpdate, onSuccess, onError }, ref) => {
-	const form = useForm<CharacterCreateUpdateInput>({
+	const form = useForm<CharacterCreateUpdateInput, Character>({
 		resolver: zodResolver(CharacterCreateUpdateSchema),
 		defaultValues: prepareDataForForm(characterToUpdate) || {
 			id: crypto.randomUUID(),
@@ -98,6 +109,7 @@ export const CreateUpdateCharacterForm = forwardRef<
 		submit: () => {
 			handleSubmit(
 				(data: CharacterCreateUpdateInput) => {
+					console.log('Submitted data:', data);
 					onSuccess?.(data as unknown as Character);
 				},
 				error => {
