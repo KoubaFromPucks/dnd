@@ -7,9 +7,9 @@ import {
 	elaraInventory
 } from '@/test-data/inventory-data';
 
-export const defaultCharactes: Character[] = [
+export const defaultCharacters: Character[] = [
 	{
-		id: crypto.randomUUID(),
+		id: '9a168237-2bbd-4163-8a08-2b7e6344aecd',
 		characterName: 'Ragnar Železný',
 		characterBackground:
 			'Veterán z hlubokých dolů, který hledá ztracenou slávu svého klanu.',
@@ -45,7 +45,7 @@ export const defaultCharactes: Character[] = [
 		conditions: []
 	},
 	{
-		id: crypto.randomUUID(),
+		id: '9159fb43-a69c-4f8f-8ccc-77e0fa33357d',
 		characterName: 'Elara Stínová',
 		characterBackground:
 			'Uprchlá šlechtična, která se naučila přežít v temných uličkách města.',
@@ -79,7 +79,7 @@ export const defaultCharactes: Character[] = [
 		conditions: []
 	},
 	{
-		id: crypto.randomUUID(),
+		id: '4a29b441-09b5-4b7f-89ff-f668f2488df9',
 		characterName: 'Zephyr Moudrý',
 		characterBackground:
 			'Učenec z daleké věže, který věří, že vědění je mocnější než meč.',

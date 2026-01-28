@@ -43,7 +43,7 @@ export const RACES: Record<RaceName, CharacterRace> = {
 	'Halfling': {
 		name: 'Halfling',
 		speed: 25,
-		darkvision: 60,
+		darkvision: 0,
 		traits: ['Lucky', 'Brave', 'Halfling Nimbleness'],
 		languages: ['Common', 'Halfling']
 	},

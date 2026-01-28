@@ -12,14 +12,14 @@ export default defineConfig([
     { files: ["src/**/*.{ts,tsx,mts,cts}"], rules: { 
         "react/prop-types": "off",
         "@typescript-eslint/no-unused-vars": [
-      "error",
-      { 
-        "argsIgnorePattern": "^_", 
-        "varsIgnorePattern": "^_",
-        "caughtErrorsIgnorePattern": "^_"
-      }
-    ]
-     } },
+            "error",
+            { 
+                "argsIgnorePattern": "^_", 
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
+            }
+        ]
+    } },
     {
         settings: {
             react: {

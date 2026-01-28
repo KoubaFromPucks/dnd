@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, forwardRef, useImperativeHandle } from 'react';
 import {
 	arrayToString,
 	Character,
@@ -20,7 +20,6 @@ import {
 import { FormTextarea } from '@/components/form/form-textarea';
 import { POSSIBLE_STATS } from '@/schema/stats';
 import { POSSIBLE_SKILLS } from '@/schema/skill';
-import { forwardRef, useImperativeHandle } from 'react';
 import { getAC, getMaximalCarryWeight } from '@/utils/character-utils';
 import { ARRAY_STRING_SEPARATOR } from '@/schema/character';
 
@@ -48,7 +47,6 @@ const prepareDataForForm = (
 	} as CharacterCreateUpdateInput;
 };
 
-// TODO inputy nejsou vidět celý
 export const CreateUpdateCharacterForm = forwardRef<
 	CreateUpdateCharacterDialogHandle,
 	CreateUpdateCharacterFormProps
@@ -94,16 +92,15 @@ export const CreateUpdateCharacterForm = forwardRef<
 	const isCreateMode = !characterToUpdate;
 	const selectedStrength = watch('stats.strength');
 	const selectedDexterity = watch('stats.dexterity');
+	const selectedHpMax = watch('hp.max');
 
 	useImperativeHandle(ref, () => ({
 		submit: () => {
 			handleSubmit(
 				(data: CharacterCreateUpdateInput) => {
-					console.log('Form submission data:', data);
 					onSuccess?.(data as unknown as Character);
 				},
 				error => {
-					console.log('Form submission error:', error);
 					onError?.(error);
 				}
 			)();
@@ -154,6 +151,10 @@ export const CreateUpdateCharacterForm = forwardRef<
 				} as unknown as Character)
 			);
 		}, [selectedDexterity, setValue]);
+
+		useEffect(() => {
+			setValue('hp.current', selectedHpMax);
+		}, [selectedHpMax, setValue]);
 	}
 
 	return (
@@ -174,17 +175,13 @@ export const CreateUpdateCharacterForm = forwardRef<
 							<FormSelect
 								name="raceName"
 								label="Race Name"
-								options={stringArrayToSelectOptions(
-									POSSIBLE_RACES.map(race => race)
-								)}
+								options={stringArrayToSelectOptions([...POSSIBLE_RACES])}
 							/>
 
 							<FormSelect
 								name="className"
 								label="Class Name"
-								options={stringArrayToSelectOptions(
-									POSSIBLE_CLASSES.map(cls => cls)
-								)}
+								options={stringArrayToSelectOptions([...POSSIBLE_CLASSES])}
 							/>
 							<FormInput
 								name="pictureUrl"
@@ -274,18 +271,14 @@ export const CreateUpdateCharacterForm = forwardRef<
 								name="savingThrows"
 								label="Saving Throws"
 								placeholder="Enter saving throw proficiencies"
-								options={stringArrayToSelectOptions(
-									POSSIBLE_STATS.map(stat => stat)
-								)}
+								options={stringArrayToSelectOptions([...POSSIBLE_STATS])}
 								isMulti
 							/>
 							<FormSelect
 								name="proficiencySkills"
 								label="Proficiency Skills"
 								placeholder="Enter any proficiency skills"
-								options={stringArrayToSelectOptions(
-									POSSIBLE_SKILLS.map(skill => skill)
-								)}
+								options={stringArrayToSelectOptions([...POSSIBLE_SKILLS])}
 								isMulti
 							/>
 

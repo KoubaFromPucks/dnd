@@ -65,18 +65,18 @@ export const CLASSES: Record<className, CharacterClass> = {
 		name: 'Bard',
 		savingThrows: ['dexterity', 'charisma'],
 		featureList: {
-			1: ['Spellcasting', ' Bardic Inspiration (d6)'],
+			1: ['Spellcasting', 'Bardic Inspiration (d6)'],
 			2: ['Jack of All Trades. Song of Rest (d6)'],
-			3: ['Bard College', ' Expertise'],
+			3: ['Bard College', 'Expertise'],
 			4: ['Ability Score Improvement'],
-			5: ['Bardic Inspiration (d8)', ' Font of Inspiration'],
-			6: ['Countercharm', ' Bard College feature'],
+			5: ['Bardic Inspiration (d8)', 'Font of Inspiration'],
+			6: ['Countercharm', 'Bard College feature'],
 			8: ['Ability Score Improvement'],
 			9: ['Song of Rest (d8)'],
-			10: ['Bardic Inspiration (d10)', ' Expertise', ' Magical Secrets'],
+			10: ['Bardic Inspiration (d10)', 'Expertise', 'Magical Secrets'],
 			12: ['Ability Score Improvement'],
 			13: ['Song of Rest (d10)'],
-			14: ['Magical Secrets', ' Bard College feature'],
+			14: ['Magical Secrets', 'Bard College feature'],
 			15: ['Bardic Inspiration (d12)'],
 			16: ['Ability Score Improvement'],
 			17: ['Song of Rest (d12)'],
@@ -84,7 +84,7 @@ export const CLASSES: Record<className, CharacterClass> = {
 			19: ['Ability Score Improvement'],
 			20: ['Superior Inspiration']
 		},
-		possibleStartingSkills: POSSIBLE_SKILLS.map(skill => skill),
+		possibleStartingSkills: [...POSSIBLE_SKILLS],
 		numberOfStartingSkills: 3
 	},
 	Cleric: {

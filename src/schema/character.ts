@@ -57,5 +57,3 @@ export type Character = z.output<typeof CharacterCreateUpdateSchema>;
 export type CharacterCreateUpdateInput = z.input<
 	typeof CharacterCreateUpdateSchema
 >;
-
-export type aaa = z.input<typeof stringToArraySchema>;

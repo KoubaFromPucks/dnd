@@ -54,8 +54,6 @@ export const CreateUpdateCharacterDialog = ({
 						toast.success('Character saved successfully!');
 					}}
 					onError={error => {
-						console.log('Form submission error:', error);
-
 						Object.entries(error).forEach(([key, value]) => {
 							toast.error(`${key}: ${value?.message || 'Invalid value'}`);
 						});

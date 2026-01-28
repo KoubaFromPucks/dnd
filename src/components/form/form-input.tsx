@@ -1,4 +1,4 @@
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, get } from 'react-hook-form';
 import React from 'react';
 
 import {
@@ -6,6 +6,7 @@ import {
 	type BasicInputProps
 } from '@/components/basic-components/basic-input';
 import { cn } from '@/lib/utils';
+import { InputLabelDiv } from './input-label-div';
 
 type FormInputProps = BasicInputProps & {
 	label: string;
@@ -18,9 +19,11 @@ export const FormInput = ({ name, label, ...inputProps }: FormInputProps) => {
 		formState: { errors }
 	} = useFormContext();
 
+	const error = get(errors, name);
+
 	return (
 		<label htmlFor={name}>
-			<div>{label}</div>
+			<InputLabelDiv label={label} />
 
 			<BasicInput
 				{...inputProps}
@@ -28,12 +31,12 @@ export const FormInput = ({ name, label, ...inputProps }: FormInputProps) => {
 					valueAsNumber: inputProps.type === 'number'
 				})}
 				id={name}
-				className={cn(errors[name] && 'border-red-600', inputProps.className)}
+				className={cn(error && 'border-red-600', inputProps.className)}
 			/>
 
-			{errors[name] && (
+			{error && (
 				<span className="mt-1 text-sm text-red-600">
-					{errors[name]?.message?.toString()}
+					{error?.message?.toString()}
 				</span>
 			)}
 		</label>

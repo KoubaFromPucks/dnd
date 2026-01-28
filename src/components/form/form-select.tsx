@@ -1,7 +1,7 @@
-// components/form/form-select.tsx
 import React from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
+import { useFormContext, Controller, get } from 'react-hook-form';
 import Select, { ActionMeta, MultiValue, SingleValue } from 'react-select';
+import { InputLabelDiv } from './input-label-div';
 
 type Option = { value: string; label: string };
 
@@ -27,9 +27,11 @@ export const FormSelect = ({
 		formState: { errors }
 	} = useFormContext();
 
+	const error = get(errors, name);
+
 	return (
 		<label className={`flex flex-col gap-1 ${className ?? ''}`}>
-			<div className="ml-1 text-sm font-medium">{label}</div>
+			<InputLabelDiv label={label} />
 
 			<Controller
 				control={control}
@@ -66,7 +68,7 @@ export const FormSelect = ({
 								control: ({ isFocused }) => `
 									!bg-background !border !border-input !rounded-md !min-h-[40px] !text-sm !transition-all
 									${isFocused ? '!ring-2 !ring-ring !ring-offset-2 !ring-offset-background !outline-none' : ''}
-									${errors[name] ? '!border-red-600' : ''}
+									${error ? '!border-red-600' : ''}
 									!pl-1
 								`,
 								valueContainer: () => '!px-2 !gap-1',
@@ -98,9 +100,9 @@ export const FormSelect = ({
 				}}
 			/>
 
-			{errors[name] && (
+			{error && (
 				<span className="mt-1 ml-1 text-sm text-red-600">
-					{errors[name]?.message?.toString()}
+					{error?.message?.toString()}
 				</span>
 			)}
 		</label>
