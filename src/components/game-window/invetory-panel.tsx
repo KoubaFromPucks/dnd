@@ -6,6 +6,7 @@ import { DiceThrows } from './dice-throws';
 import { Button } from '../basic-components/button';
 import { cn } from '@/lib/utils';
 import { Item } from '@/schema/item';
+import { IconButton } from '../basic-components';
 
 const uneqipAllItemsWithSameSuffix = (
 	character: Character,
@@ -87,24 +88,12 @@ const InventoryItem = ({
 		</Button>
 
 		<div className="absolute right-2 flex items-center gap-1">
-			<button
-				onClick={e => {
-					e.stopPropagation();
-				}}
-				className="p-1 text-slate-500 transition-colors hover:text-amber-500"
-				title="Edit Item"
-			>
+			<IconButton className="hover:text-amber-500">
 				<Edit2 size={14} />
-			</button>
-			<button
-				onClick={e => {
-					e.stopPropagation();
-				}}
-				className="p-1 text-slate-500 transition-colors hover:text-red-500"
-				title="Remove from Inventory"
-			>
+			</IconButton>
+			<IconButton className="hover:text-red-500">
 				<Trash2 size={14} />
-			</button>
+			</IconButton>
 		</div>
 	</div>
 );
