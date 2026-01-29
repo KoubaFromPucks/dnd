@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '../basic-components/button';
+import { Button } from '../../basic-components/button';
 
 export const DiceThrows = () => {
 	const diceTypes = [20, 12, 10, 8, 6, 4];

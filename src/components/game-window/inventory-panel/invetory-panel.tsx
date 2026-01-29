@@ -1,13 +1,13 @@
 import React from 'react';
 import { Backpack, Dices, Edit2, Trash2 } from 'lucide-react';
 import { Character } from '@/schema/character';
-import { PanelHeader } from './panel-header';
+import { PanelHeader } from '../panel-header';
 import { DiceThrows } from './dice-throws';
 import { cn } from '@/lib/utils';
 import { Item } from '@/schema/item';
-import { IconButton, PlusButton, Button } from '../basic-components';
-import { ConfirmDialog } from '../ui';
-import { CreateUpdateItemDialog } from '../ui/concrete-dialogs/create-update-item-dialog/create-update-item-dialog';
+import { IconButton, PlusButton, Button } from '../../basic-components';
+import { ConfirmDialog } from '../../ui';
+import { CreateUpdateItemDialog } from '../../ui/concrete-dialogs/create-update-item-dialog/create-update-item-dialog';
 
 export const InventoryPanel = ({
 	character,
