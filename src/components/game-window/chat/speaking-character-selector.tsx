@@ -12,9 +12,9 @@ export const SpeakingChracterSelector = ({
 	characters: Character[];
 	onSelectCharacter: (characterId: string | null) => void;
 }) => (
-	<footer className="border-t border-slate-800 bg-slate-900 pt-3">
-		<div className="flex items-center">Talking as:</div>
-		<div className="flex justify-center gap-2 overflow-x-auto">
+	<div className="border-t border-slate-800 bg-slate-900 pt-3">
+		<div className="flex items-center font-bold uppercase">Talking as:</div>
+		<div className="flex flex-wrap justify-center gap-2 overflow-x-auto">
 			<SpeakingChracterOption
 				onClick={onSelectCharacter}
 				isSelected={selectedCharacterId === null}
@@ -28,7 +28,7 @@ export const SpeakingChracterSelector = ({
 				/>
 			))}
 		</div>
-	</footer>
+	</div>
 );
 
 const SpeakingChracterOption = ({
