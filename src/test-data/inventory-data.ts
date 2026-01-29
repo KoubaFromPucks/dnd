@@ -13,6 +13,7 @@ export const ragnarInventory: Item[] = [
 		passiveEffects: [],
 		activeEffectDescription: ['Seknutí nepřítele.'],
 		rarity: 'common',
+		armorClassBonus: 0,
 		statsBonuses: {
 			strength: 1,
 			charisma: -1,
@@ -103,6 +104,7 @@ export const elaraInventory: Item[] = [
 		passiveEffects: [],
 		activeEffectDescription: ['Bodnutí slabého místa.'],
 		rarity: 'common',
+		armorClassBonus: 0,
 		statsBonuses: {
 			strength: 0,
 			dexterity: 1,
@@ -124,6 +126,7 @@ export const elaraInventory: Item[] = [
 		passiveEffects: [],
 		activeEffectDescription: ['Střelba z dálky.'],
 		rarity: 'common',
+		armorClassBonus: 0,
 		statsBonuses: {
 			strength: 0,
 			dexterity: 1,
@@ -167,6 +170,7 @@ export const elaraInventory: Item[] = [
 		passiveEffects: [],
 		activeEffectDescription: ['Usnadňuje otevírání zámků'],
 		rarity: 'common',
+		armorClassBonus: 0,
 		statsBonuses: {
 			dexterity: 1,
 			strength: 0,
@@ -192,6 +196,7 @@ export const zephyrInventory: Item[] = [
 		passiveEffects: [],
 		activeEffectDescription: ['Úder holí.'],
 		rarity: 'common',
+		armorClassBonus: 0,
 		statsBonuses: {
 			intelligence: 1,
 			strength: 0,
@@ -213,6 +218,7 @@ export const zephyrInventory: Item[] = [
 		passiveEffects: [],
 		activeEffectDescription: ['Studium kouzel'],
 		rarity: 'uncommon',
+		armorClassBonus: 0,
 		statsBonuses: {
 			intelligence: 1,
 			strength: 0,
@@ -234,6 +240,7 @@ export const zephyrInventory: Item[] = [
 		passiveEffects: [],
 		activeEffectDescription: ['Okamžitě vyléčí 2d4 + 2 životů.'],
 		rarity: 'common',
+		armorClassBonus: 0,
 		statsBonuses: {
 			intelligence: 0,
 			strength: 0,

@@ -14,6 +14,7 @@ import { Accordion } from '../../accordion';
 import { FormTextarea } from '@/components/form/form-textarea';
 import { AccordionSection } from '@/components/ui/accordion-section';
 import { ARRAY_STRING_SEPARATOR } from '@/schema/string-to-array-schema';
+import { FormCheckbox } from '@/components/form/form-checkbox';
 
 export type CreateUpdateItemDialogHandle = {
 	submit: () => void;
@@ -120,7 +121,7 @@ export const CreateUpdateItemForm = forwardRef<
 								placeholder="A legendary sword reforged from the shards of Narsil."
 							/>
 							<FormInput name="quantity" label="Quantity" type="number" />
-							<FormInput name="equipped" label="Equipped" type="checkbox" />
+							<FormCheckbox name="equipped" label="Equipped" />
 						</AccordionSection>
 
 						<AccordionSection title="Properties">
