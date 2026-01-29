@@ -121,12 +121,12 @@ async function main() {
         gameHistory.push({ role: "assistant", content: text });
         
         // --- MEMORY OPTIMIZATION ("Pinning Strategy") ---
-        // If history gets too long (over 30 turns), we prune the MIDDLE.
+        // If history gets too long (over 200 turns), we prune the MIDDLE.
         // We keep:
         // 1. The System Prompt (Index 0) - Identity
         // 2. The Setup Phase (Indices 1-5) - Character/World Info
         // 3. The Recent Context (Last 20) - Immediate Story
-        if (gameHistory.length > 30) {
+        if (gameHistory.length > 200) {
             gameHistory = [
                 gameHistory[0],              
                 ...gameHistory.slice(1, 6),  
