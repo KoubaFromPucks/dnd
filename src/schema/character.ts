@@ -5,24 +5,9 @@ import { POSSIBLE_CLASSES } from './character-class';
 import { z } from 'zod';
 import { POSSIBLE_RACES } from './character-race';
 import { POSSIBLE_SKILLS } from './skill';
+import { stringToArraySchema } from './string-to-array-schema';
 
-export const ARRAY_STRING_SEPARATOR = '\n';
-
-export const stringToArray = (input: string) =>
-	input
-		.split(ARRAY_STRING_SEPARATOR)
-		.map(str => str.trim())
-		.filter(Boolean);
-
-export const arrayToString = (input: string[]) =>
-	input.join(ARRAY_STRING_SEPARATOR);
-
-const stringToArraySchema = z
-	.string()
-	.transform(stringToArray)
-	.pipe(z.string().array());
-
-export const CharacterCreateUpdateSchema = z.object({
+export const CharacterSchema = z.object({
 	id: z.string().uuid(),
 	pictureUrl: z.string().url().optional().or(z.literal('')),
 	characterBackground: z.string().optional().or(z.literal('')),
@@ -30,7 +15,7 @@ export const CharacterCreateUpdateSchema = z.object({
 	level: z.number().min(1).max(20),
 	stats: statsSchema,
 	hp: z.object({ current: z.number().min(0), max: z.number().min(1) }),
-	inventory: ItemSchema.array(),
+	inventory: z.array(ItemSchema),
 	currentGold: z.number().min(0),
 	alignment: z.string().optional().or(z.literal('')),
 	conditions: stringToArraySchema,
@@ -52,8 +37,6 @@ export const CharacterCreateUpdateSchema = z.object({
 	proficiencySkills: z.array(z.enum(POSSIBLE_SKILLS))
 });
 
-export type Character = z.output<typeof CharacterCreateUpdateSchema>;
+export type Character = z.output<typeof CharacterSchema>;
 
-export type CharacterCreateUpdateInput = z.input<
-	typeof CharacterCreateUpdateSchema
->;
+export type CharacterCreateUpdateInput = z.input<typeof CharacterSchema>;

@@ -1,9 +1,8 @@
 import React, { useEffect, forwardRef, useImperativeHandle } from 'react';
 import {
-	arrayToString,
 	Character,
 	CharacterCreateUpdateInput,
-	CharacterCreateUpdateSchema
+	CharacterSchema
 } from '@/schema/character';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,17 +10,16 @@ import { FormInput, FormSelect } from '@/components/form';
 import { POSSIBLE_RACES, RACES } from '@/schema/character-race';
 import { CLASSES, POSSIBLE_CLASSES } from '@/schema/character-class';
 import { stringArrayToSelectOptions } from '@/lib/utils';
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger
-} from '../../accordion';
+import { Accordion } from '../../accordion';
+import { AccordionSection } from '@/components/ui/accordion-section';
 import { FormTextarea } from '@/components/form/form-textarea';
 import { POSSIBLE_STATS } from '@/schema/stats';
 import { POSSIBLE_SKILLS } from '@/schema/skill';
 import { getAC, getMaximalCarryWeight } from '@/utils/character-utils';
-import { ARRAY_STRING_SEPARATOR } from '@/schema/character';
+import {
+	ARRAY_STRING_SEPARATOR,
+	arrayToString
+} from '@/schema/string-to-array-schema';
 
 export type CreateUpdateCharacterDialogHandle = {
 	submit: () => void;
@@ -40,10 +38,19 @@ const prepareDataForForm = (
 
 	return {
 		...character,
-		conditions: character.conditions?.join(ARRAY_STRING_SEPARATOR) ?? '',
-		traits: character.traits?.join(ARRAY_STRING_SEPARATOR) ?? '',
-		languages: character.languages?.join(ARRAY_STRING_SEPARATOR) ?? '',
-		features: character.features?.join(ARRAY_STRING_SEPARATOR) ?? ''
+		conditions: character.conditions.join(ARRAY_STRING_SEPARATOR),
+		traits: character.traits.join(ARRAY_STRING_SEPARATOR),
+		languages: character.languages.join(ARRAY_STRING_SEPARATOR),
+		features: character.features.join(ARRAY_STRING_SEPARATOR),
+		inventory: character.inventory.map(item => ({
+			...item,
+			passiveEffects: Array.isArray(item.passiveEffects)
+				? item.passiveEffects.join(ARRAY_STRING_SEPARATOR)
+				: item.passiveEffects,
+			activeEffectDescription: Array.isArray(item.activeEffectDescription)
+				? item.activeEffectDescription.join(ARRAY_STRING_SEPARATOR)
+				: item.activeEffectDescription
+		}))
 	} as CharacterCreateUpdateInput;
 };
 
@@ -51,8 +58,8 @@ export const CreateUpdateCharacterForm = forwardRef<
 	CreateUpdateCharacterDialogHandle,
 	CreateUpdateCharacterFormProps
 >(({ characterToUpdate, onSuccess, onError }, ref) => {
-	const form = useForm<CharacterCreateUpdateInput>({
-		resolver: zodResolver(CharacterCreateUpdateSchema),
+	const form = useForm<CharacterCreateUpdateInput, Character>({
+		resolver: zodResolver(CharacterSchema),
 		defaultValues: prepareDataForForm(characterToUpdate) || {
 			id: crypto.randomUUID(),
 			characterName: '',
@@ -296,23 +303,3 @@ export const CreateUpdateCharacterForm = forwardRef<
 });
 
 CreateUpdateCharacterForm.displayName = 'CreateUpdateCharacterForm';
-
-const AccordionSection = ({
-	title,
-	children
-}: {
-	title: string;
-	children: React.ReactNode;
-}) => (
-	<AccordionItem
-		value={title.toLowerCase().replace(/\s+/g, '-')}
-		className="border-border"
-	>
-		<AccordionTrigger className="text-primary font-bold tracking-wider uppercase hover:no-underline">
-			{title}
-		</AccordionTrigger>
-		<AccordionContent className="space-y-4 px-1 pt-2">
-			{children}
-		</AccordionContent>
-	</AccordionItem>
-);

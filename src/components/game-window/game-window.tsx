@@ -14,6 +14,14 @@ export const GameWindow = () => {
 	);
 	const [characters, setCharacters] = useState<Character[]>(defaultCharacters);
 
+	const setUpdatedCharacters = (updatedCharacter: Character) => {
+		setCharacters(
+			characters.map(character =>
+				character.id === updatedCharacter.id ? updatedCharacter : character
+			)
+		);
+	};
+
 	return (
 		<div className="flex h-full w-full overflow-hidden bg-slate-950 text-slate-200">
 			<CharacterPanel
@@ -22,21 +30,22 @@ export const GameWindow = () => {
 				onCharacterAdd={character => {
 					setCharacters([...characters, character]);
 				}}
-				onCharacterUpdate={(updatedCharacter: Character) => {
-					setCharacters(
-						characters.map(char =>
-							char.id === updatedCharacter.id ? updatedCharacter : char
-						)
-					);
-				}}
+				onCharacterUpdate={setUpdatedCharacters}
 			/>
 
 			<Chat />
 
 			<InventoryPanel
 				character={selectedCharacter}
-				onEquippedChanged={() => {
-					setSelectedCharacter({ ...selectedCharacter! });
+				onInventoryChange={newInventory => {
+					if (!selectedCharacter) return;
+
+					const updatedCharacter = {
+						...selectedCharacter,
+						inventory: newInventory
+					};
+					setUpdatedCharacters(updatedCharacter);
+					setSelectedCharacter(updatedCharacter);
 				}}
 			/>
 		</div>
