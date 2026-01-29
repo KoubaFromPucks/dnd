@@ -10,7 +10,7 @@ const PDF_NAME = "pravidla.pdf";
 // --- STATE MANAGEMENT ---
 // The AI needs to remember the story so far
 let gameHistory = [
-    { role: "system", content: "You are a Dungeon Master. You narrate the adventure. The user is the Player. Keep responses exciting but SHORT. Ask for dice rolls when needed." }
+    { role: "system", content: "You are a Dungeon Master. You narrate the adventure. The user is the Player. Keep responses exciting but SHORT. Ask for dice rolls when needed. At the start of the campaign, welcome the player to the campaign, help the player set up their character, do not use only dice rolls to decide the outcome of battles/situations, but also consider the players answer" }
 ];
 
 async function main() {
@@ -42,7 +42,7 @@ async function main() {
             console.log("...Checking the rulebook...");
             
             const thoughtProcess = await groq.chat.completions.create({
-                model: "llama-3.3-70b-versatile",
+                model: "openai/gpt-oss-120b",
                 messages: [
                     { role: "system", content: "You are a helper. The player performed an action. Identify 3-5 KEYWORDS from the D&D rules that apply to this action. Output ONLY the keywords." },
                     { role: "user", content: `Player Action: "${playerAction}".\n\nKeywords:` }
@@ -50,7 +50,7 @@ async function main() {
             });
 
             const searchTerms = thoughtProcess.choices[0].message.content;
-            // console.log(`(DEBUG: Looking up rules for: ${searchTerms})`); // Uncomment to see what it's thinking
+            console.log(`(DEBUG: Looking up rules for: ${searchTerms})`);  // Uncomment to see what it's thinking
 
             // --- STEP 2: RETRIEVAL (Search the PDF for those Rules) ---
             const terms = searchTerms.split(",").map(s => s.trim());
