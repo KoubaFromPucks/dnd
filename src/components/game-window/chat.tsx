@@ -5,6 +5,8 @@ import { type ChatMessage } from '@/schema/chat-message';
 import { toast } from 'sonner';
 import { SubmitButton } from '../basic-components/submit-button';
 import { Character } from '@/schema/character';
+import { Button } from '../basic-components';
+import { Portrait } from '../portrait';
 
 type ChatProps = {
 	characters: Character[];
@@ -12,6 +14,9 @@ type ChatProps = {
 
 export const Chat = ({ characters }: ChatProps) => {
 	const [input, setInput] = useState('');
+	const [selectedCharacterId, setSelectedCharacterId] = useState<string | null>(
+		null
+	);
 	const [messages, setMessages] = useState<ChatMessage[]>([
 		{
 			role: 'assistant',
@@ -26,7 +31,13 @@ export const Chat = ({ characters }: ChatProps) => {
 
 		const newMessages: ChatMessage[] = [
 			...messages,
-			{ role: 'user', content: input }
+			{
+				role: 'user',
+				content: input,
+				characterId: selectedCharacterId ?? undefined,
+				characterName: characters.find(c => c.id === selectedCharacterId)
+					?.characterName
+			}
 		];
 		setMessages(newMessages);
 		setInput('');
@@ -71,8 +82,13 @@ export const Chat = ({ characters }: ChatProps) => {
 				))}
 			</div>
 
-			<footer className="border-t border-slate-800 bg-slate-900 p-6">
-				<div className="mx-auto flex max-w-4xl items-center gap-4">
+			<footer className="bg-slate-900 px-6 pb-3">
+				<SpeakingChracterSelector
+					characters={characters}
+					onSelectCharacter={setSelectedCharacterId}
+					selectedCharacterId={selectedCharacterId}
+				/>
+				<div className="mx-auto mt-4 flex max-w-4xl items-center gap-4">
 					<input
 						value={input}
 						onChange={e => setInput(e.target.value)}
@@ -91,3 +107,54 @@ export const Chat = ({ characters }: ChatProps) => {
 		</div>
 	);
 };
+
+const SpeakingChracterSelector = ({
+	selectedCharacterId,
+	characters,
+	onSelectCharacter
+}: {
+	selectedCharacterId: string | null;
+	characters: Character[];
+	onSelectCharacter: (characterId: string | null) => void;
+}) => (
+	<footer className="border-t border-slate-800 bg-slate-900 pt-3">
+		<div className="flex items-center">Talking as:</div>
+		<div className="flex justify-center gap-2 overflow-x-auto">
+			<SpeakingChracterOption
+				onClick={onSelectCharacter}
+				isSelected={selectedCharacterId === null}
+			/>
+			{characters.map(char => (
+				<SpeakingChracterOption
+					key={char.id}
+					character={char}
+					onClick={onSelectCharacter}
+					isSelected={selectedCharacterId === char.id}
+				/>
+			))}
+		</div>
+	</footer>
+);
+
+const SpeakingChracterOption = ({
+	character,
+	onClick,
+	isSelected
+}: {
+	character?: Character;
+	onClick: (characterId: string | null) => void;
+	isSelected?: boolean;
+}) => (
+	<Button
+		onClick={() => onClick(character?.id ?? null)}
+		variant={isSelected ? 'outline' : 'ghost'}
+	>
+		{character && (
+			<>
+				<Portrait url={character.pictureUrl} size="sm" />
+				<span className="ml-2">{character.characterName}</span>
+			</>
+		)}
+		{!character && <span>DM</span>}
+	</Button>
+);
