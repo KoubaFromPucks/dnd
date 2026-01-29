@@ -5,10 +5,12 @@ export const defaultPortrait =
 
 export const Portrait = ({
 	url,
-	size
+	size,
+	label
 }: {
 	url?: string;
 	size?: 'sm' | 'md' | 'lg';
+	label: string;
 }) => {
 	const sizeClasses = {
 		sm: 'h-8 w-8',
@@ -18,7 +20,7 @@ export const Portrait = ({
 
 	const borderSizes = {
 		sm: 'border-2',
-		md: 'border-3',
+		md: 'border-4',
 		lg: 'border-4'
 	};
 
@@ -26,7 +28,7 @@ export const Portrait = ({
 		<div
 			className={`mx-auto overflow-hidden rounded-full border-amber-600 bg-slate-800 ${sizeClasses[size || 'lg']} ${borderSizes[size || 'lg']}`}
 		>
-			<img src={url || defaultPortrait} alt="Portrait" className="opacity-70" />
+			<img src={url || defaultPortrait} alt={label} className="opacity-70" />
 		</div>
 	);
 };

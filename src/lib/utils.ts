@@ -9,5 +9,5 @@ export const stringArrayToSelectOptions = (options: string[]) => {
 	return options.map(option => ({ label: option, value: option }));
 };
 
-export const delay = (ms: number) =>
+export const delay = (ms: number): Promise<void> =>
 	new Promise(resolve => setTimeout(resolve, ms));

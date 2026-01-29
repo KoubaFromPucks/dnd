@@ -27,7 +27,10 @@ export const CharacterStats = ({
 	return (
 		<div className="flex flex-col gap-6 rounded-b-xl border-x border-b border-slate-800 bg-slate-800/30 p-2">
 			<div className="text-center">
-				<Portrait url={character?.pictureUrl} />
+				<Portrait
+					url={character?.pictureUrl}
+					label={`${character?.characterName} Portrait`}
+				/>
 				<h2 className="text-xl font-bold text-amber-500">
 					{character?.characterName}
 				</h2>

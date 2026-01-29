@@ -13,13 +13,8 @@ export const SubmitButton = ({
 	disabled
 }: SubmitButtonProps) => {
 	return (
-		<Button
-			variant="default"
-			type="submit"
-			onClick={onClick}
-			disabled={disabled}
-		>
-			{children ?? 'Submit'}{' '}
+		<Button variant="default" onClick={onClick} disabled={disabled}>
+			{children ?? 'Submit'}
 			{disabled && <span className="ml-2 animate-spin">⏳</span>}
 		</Button>
 	);
