@@ -27,7 +27,9 @@ export const InventoryPanel = ({
 						<CreateUpdateItemDialog
 							trigger={<PlusButton />}
 							onSave={item => {
-								onInventoryChange([...character!.inventory, item]);
+								if (!character) return;
+
+								onInventoryChange([...character.inventory, item]);
 							}}
 						/>
 					}
