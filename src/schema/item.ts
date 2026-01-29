@@ -34,7 +34,7 @@ export const ItemSchema = z.object({
 
 	weight: z.number().min(0),
 	cost: z.number().min(0),
-	armorClassBonus: z.number().optional(),
+	armorClassBonus: z.number().default(0),
 
 	statsBonuses: statsSchema,
 

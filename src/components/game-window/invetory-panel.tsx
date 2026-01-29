@@ -41,6 +41,11 @@ export const InventoryPanel = ({
 							onDelete={() => {
 								onInventoryChange(character.inventory.filter(i => i !== item));
 							}}
+							onItemChange={(updatedItem: Item) =>
+								onInventoryChange(
+									character.inventory.map(i => (i === item ? updatedItem : i))
+								)
+							}
 						/>
 					))}
 				</div>
@@ -57,10 +62,12 @@ export const InventoryPanel = ({
 
 const InventoryItem = ({
 	item,
-	onDelete
+	onDelete,
+	onItemChange
 }: {
 	item: Item;
 	onDelete: () => void;
+	onItemChange: (updatedItem: Item) => void;
 }) => {
 	const [equipped, setEquipped] = React.useState(item.equipped);
 
@@ -85,9 +92,16 @@ const InventoryItem = ({
 			</Button>
 
 			<div className="absolute right-2 flex items-center gap-1">
-				<IconButton className="hover:text-amber-500">
-					<Edit2 size={14} />
-				</IconButton>
+				<CreateUpdateItemDialog
+					itemToUpdate={item}
+					trigger={
+						<IconButton className="hover:text-amber-500">
+							<Edit2 size={14} />
+						</IconButton>
+					}
+					onSave={onItemChange}
+				/>
+
 				<ConfirmDialog
 					trigger={
 						<IconButton className="hover:text-red-500">
