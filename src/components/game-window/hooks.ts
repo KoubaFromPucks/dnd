@@ -13,16 +13,16 @@ export const useSendChatMessageMutation = () =>
 			characters: Character[];
 		}) => {
 			await delay(1500); // Simulate network delay
-            console.log('Sending chat message with history:', chatHistory);
-            console.log('Characters involved:', characters);
+			console.log('Sending chat message with history:', chatHistory);
+			console.log('Characters involved:', characters);
 
-            // TODO prepare data messages HERE or in another module
-            //? For example, slice chatHistory to last N messages, format characters, etc.
+			// TODO prepare data messages HERE or in another module
+			//? For example, slice chatHistory to last N messages, format characters, etc.
 
-            // TODO send to api HERE 
-            //! ideally just call one function defined in another module 
-            //! ideally stored in src/facades/ or src/utils/ or src/<module name>/<file name>.ts
-            //? Example: sendChatMessageAPI(<parameters>); - parameters could be chatHistory, characters, etc.
+			// TODO send to api HERE
+			//! ideally just call one function defined in another module
+			//! ideally stored in src/facades/ or src/lib/ or src/<module name>/<file name>.ts
+			//? Example: sendChatMessageAPI(<parameters>); - parameters could be chatHistory, characters, etc.
 
 			return {
 				role: 'assistant',

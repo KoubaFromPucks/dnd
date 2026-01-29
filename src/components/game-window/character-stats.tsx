@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { Shield, Heart, Coins, Weight, Edit2 } from 'lucide-react';
 import { Portrait } from '../portrait';
 import { Character } from '@/schema/character';
-import { getCurrentCarryWeight } from '@/utils/character-utils';
+import { getCurrentCarryWeight } from '@/lib/character-utils';
 import { CreateUpdateCharacterDialog } from '../ui/concrete-dialogs/create-update-character-dialog/create-update-character-dialog';
 import { Button } from '../basic-components';
 
