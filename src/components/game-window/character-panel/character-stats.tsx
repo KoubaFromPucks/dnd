@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react';
 import { Shield, Heart, Coins, Weight, Edit2 } from 'lucide-react';
-import { Portrait } from '../portrait';
+import { Portrait } from '../../portrait';
 import { Character } from '@/schema/character';
-import { getCurrentCarryWeight } from '@/utils/character-utils';
-import { CreateUpdateCharacterDialog } from '../ui/concrete-dialogs/create-update-character-dialog/create-update-character-dialog';
-import { Button } from '../basic-components';
+import { getCurrentCarryWeight } from '@/lib/character-utils';
+import { CreateUpdateCharacterDialog } from '../../ui/concrete-dialogs/create-update-character-dialog/create-update-character-dialog';
+import { Button } from '../../basic-components';
 
 type StateVariant = 'red' | 'blue' | 'yellow' | 'gray';
 
@@ -27,7 +27,10 @@ export const CharacterStats = ({
 	return (
 		<div className="flex flex-col gap-6 rounded-b-xl border-x border-b border-slate-800 bg-slate-800/30 p-2">
 			<div className="text-center">
-				<Portrait url={character?.pictureUrl} />
+				<Portrait
+					url={character?.pictureUrl}
+					label={`${character?.characterName} Portrait`}
+				/>
 				<h2 className="text-xl font-bold text-amber-500">
 					{character?.characterName}
 				</h2>

@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 
-import { CharacterPanel } from '@/components/game-window/character-panel';
-import { Chat } from '@/components/game-window/chat';
-import { InventoryPanel } from '@/components/game-window/invetory-panel';
+import { CharacterPanel } from '@/components/game-window/character-panel/character-panel';
+import { Chat } from '@/components/game-window/chat/chat';
+import { InventoryPanel } from '@/components/game-window/inventory-panel/inventory-panel';
 import { defaultCharacters } from '@/test-data/character-data';
 import { Character } from '@/schema/character';
 
@@ -33,7 +33,7 @@ export const GameWindow = () => {
 				onCharacterUpdate={setUpdatedCharacters}
 			/>
 
-			<Chat />
+			<Chat characters={characters} />
 
 			<InventoryPanel
 				character={selectedCharacter}

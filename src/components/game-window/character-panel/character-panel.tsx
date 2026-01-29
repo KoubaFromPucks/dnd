@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronRight, Users } from 'lucide-react';
 import { CharacterStats } from './character-stats';
 import { Character } from '@/schema/character';
-import { PanelHeader } from './panel-header';
+import { PanelHeader } from '../panel-header';
 import { CreateUpdateCharacterDialog } from '@/components/ui';
 import { PlusButton } from '@/components/basic-components';
 

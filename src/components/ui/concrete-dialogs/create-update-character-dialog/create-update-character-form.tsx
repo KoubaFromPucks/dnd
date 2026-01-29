@@ -15,7 +15,7 @@ import { AccordionSection } from '@/components/ui/accordion-section';
 import { FormTextarea } from '@/components/form/form-textarea';
 import { POSSIBLE_STATS } from '@/schema/stats';
 import { POSSIBLE_SKILLS } from '@/schema/skill';
-import { getAC, getMaximalCarryWeight } from '@/utils/character-utils';
+import { getAC, getMaximalCarryWeight } from '@/lib/character-utils';
 import {
 	ARRAY_STRING_SEPARATOR,
 	arrayToString
