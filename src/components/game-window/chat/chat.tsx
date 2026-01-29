@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { SubmitButton } from '../../basic-components/submit-button';
 import { Character } from '@/schema/character';
 import { SpeakingChracterSelector } from './speaking-character-selector';
+import { getCharacterColor } from '@/lib/character-utils';
 
 type ChatProps = {
 	characters: Character[];
@@ -72,7 +73,7 @@ export const Chat = ({ characters }: ChatProps) => {
 							className={`wrap-break-words max-w-[80%] rounded-2xl p-4 [word-break:break-word] shadow-xl ${
 								m.role === 'assistant'
 									? 'border-l-4 border-amber-600 bg-slate-800 text-slate-200'
-									: 'rounded-tr-none bg-amber-700 text-white'
+									: `rounded-tr-none ${getCharacterColor(characters.findIndex(c => c.id === m.characterId))} text-white`
 							}`}
 						>
 							<p className="leading-relaxed">{m.content}</p>

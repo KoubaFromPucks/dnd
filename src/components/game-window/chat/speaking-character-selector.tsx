@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '../../basic-components';
 import { Portrait } from '../../portrait';
 import { Character } from '@/schema/character';

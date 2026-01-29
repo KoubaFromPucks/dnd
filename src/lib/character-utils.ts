@@ -2,6 +2,28 @@ import { Character } from '@/schema/character';
 
 export const carryWeightMultiplier = 15;
 
+export const CHARACTER_COLORS = [
+	'bg-blue-600',
+	'bg-red-800',
+	'bg-green-900',
+	'bg-violet-600',
+	'bg-cyan-600',
+	'bg-emerald-600',
+	'bg-fuchsia-600',
+	'bg-lime-600',
+	'bg-rose-500',
+	'bg-black',
+	'bg-orange-900'
+];
+
+export const getCharacterColor = (characterIndex: number): string => {
+	if (characterIndex < 0) {
+		return 'bg-amber-700';
+	}
+
+	return CHARACTER_COLORS[characterIndex % CHARACTER_COLORS.length];
+};
+
 export const getMaximalCarryWeight = (character?: Character): number => {
 	if (!character) {
 		return 0;
