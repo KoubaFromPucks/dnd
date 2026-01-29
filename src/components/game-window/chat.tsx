@@ -1,20 +1,42 @@
 import React, { useState } from 'react';
 import { Zap } from 'lucide-react';
-import { Button } from '../basic-components/button';
+import { useSendChatMessageMutation } from './hooks';
+import { type ChatMessage } from '@/schema/chat-message';
+import { toast } from 'sonner';
+import { SubmitButton } from '../basic-components/submit-button';
 
 export const Chat = () => {
 	const [input, setInput] = useState('');
-	const [messages, setMessages] = useState([
+	const [messages, setMessages] = useState<ChatMessage[]>([
 		{
-			role: 'dm',
-			text: 'You enter a dark cave. The air smells of dampness and decay. What do you do?'
+			role: 'assistant',
+			content:
+				'You enter a dark cave. The air smells of dampness and decay. What do you do?'
 		}
 	]);
-	const handleSendMessage = () => {
+	const sendMessageMutation = useSendChatMessageMutation();
+
+	const onMessageSubmit = () => {
 		if (!input.trim()) return;
-		setMessages([...messages, { role: 'user', text: input }]);
-		// TODO call API
+
+		const newMessages: ChatMessage[] = [
+			...messages,
+			{ role: 'user', content: input }
+		];
+		setMessages(newMessages);
 		setInput('');
+
+		sendMessageMutation.mutate(
+			{ chatHistory: newMessages, characters: [] }, // TODO characters
+			{
+				onSuccess: responseMessage => {
+					setMessages(prevMessages => [...prevMessages, responseMessage]);
+				},
+				onError: error => {
+					toast.error(`Failed to send message: ${error.message}`);
+				}
+			}
+		);
 	};
 
 	return (
@@ -29,16 +51,16 @@ export const Chat = () => {
 				{messages.map((m, i) => (
 					<div
 						key={i}
-						className={`flex ${m.role === 'dm' ? 'justify-start' : 'justify-end'}`}
+						className={`flex ${m.role === 'assistant' ? 'justify-start' : 'justify-end'}`}
 					>
 						<div
 							className={`wrap-break-words max-w-[80%] rounded-2xl p-4 [word-break:break-word] shadow-xl ${
-								m.role === 'dm'
+								m.role === 'assistant'
 									? 'border-l-4 border-amber-600 bg-slate-800 text-slate-200'
 									: 'rounded-tr-none bg-amber-700 text-white'
 							}`}
 						>
-							<p className="leading-relaxed">{m.text}</p>
+							<p className="leading-relaxed">{m.content}</p>
 						</div>
 					</div>
 				))}
@@ -49,13 +71,16 @@ export const Chat = () => {
 					<input
 						value={input}
 						onChange={e => setInput(e.target.value)}
-						onKeyDown={e => e.key === 'Enter' && handleSendMessage()}
+						onKeyDown={e => e.key === 'Enter' && onMessageSubmit()}
 						placeholder="Type your action (e.g., Search the chest...)"
 						className="flex-1 rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 transition-colors focus:border-amber-600 focus:outline-none"
 					/>
-					<Button onClick={handleSendMessage} variant="default" size="default">
+					<SubmitButton
+						onClick={onMessageSubmit}
+						disabled={sendMessageMutation.isPending}
+					>
 						SUBMIT
-					</Button>
+					</SubmitButton>
 				</div>
 			</footer>
 		</div>

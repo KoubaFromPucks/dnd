@@ -3,10 +3,9 @@ import { Backpack, Dices, Edit2, Trash2 } from 'lucide-react';
 import { Character } from '@/schema/character';
 import { PanelHeader } from './panel-header';
 import { DiceThrows } from './dice-throws';
-import { Button } from '../basic-components/button';
 import { cn } from '@/lib/utils';
 import { Item } from '@/schema/item';
-import { IconButton, PlusButton } from '../basic-components';
+import { IconButton, PlusButton, Button } from '../basic-components';
 import { ConfirmDialog } from '../ui';
 import { CreateUpdateItemDialog } from '../ui/concrete-dialogs/create-update-item-dialog/create-update-item-dialog';
 
