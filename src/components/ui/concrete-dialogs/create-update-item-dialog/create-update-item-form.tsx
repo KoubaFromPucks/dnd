@@ -78,7 +78,6 @@ export const CreateUpdateItemForm = forwardRef<
 		submit: () => {
 			handleSubmit(
 				(data: ItemCreateUpdateInput) => {
-					console.log('Submitted data:', data);
 					onSuccess?.(data as unknown as Item);
 				},
 				error => {

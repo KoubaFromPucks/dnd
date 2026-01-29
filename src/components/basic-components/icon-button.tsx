@@ -11,7 +11,7 @@ export const IconButton = ({ children, ...props }: IconButtonProps) => {
 				props.onClick?.(e);
 			}}
 			className={cn('p-1 text-slate-500 transition-colors', props.className)}
-			title="Edit Item"
+			title={props.title}
 		>
 			{children}
 		</button>

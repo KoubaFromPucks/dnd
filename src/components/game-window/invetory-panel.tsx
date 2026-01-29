@@ -95,7 +95,7 @@ const InventoryItem = ({
 				<CreateUpdateItemDialog
 					itemToUpdate={item}
 					trigger={
-						<IconButton className="hover:text-amber-500">
+						<IconButton className="hover:text-amber-500" title="Edit Item">
 							<Edit2 size={14} />
 						</IconButton>
 					}
@@ -104,7 +104,7 @@ const InventoryItem = ({
 
 				<ConfirmDialog
 					trigger={
-						<IconButton className="hover:text-red-500">
+						<IconButton className="hover:text-red-500" title="Delete Item">
 							<Trash2 size={14} />
 						</IconButton>
 					}

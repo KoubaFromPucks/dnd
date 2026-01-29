@@ -105,7 +105,6 @@ export const CreateUpdateCharacterForm = forwardRef<
 		submit: () => {
 			handleSubmit(
 				(data: CharacterCreateUpdateInput) => {
-					console.log('Submitted data:', data);
 					onSuccess?.(data as unknown as Character);
 				},
 				error => {
