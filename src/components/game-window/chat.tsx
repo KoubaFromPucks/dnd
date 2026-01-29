@@ -4,8 +4,13 @@ import { useSendChatMessageMutation } from './hooks';
 import { type ChatMessage } from '@/schema/chat-message';
 import { toast } from 'sonner';
 import { SubmitButton } from '../basic-components/submit-button';
+import { Character } from '@/schema/character';
 
-export const Chat = () => {
+type ChatProps = {
+	characters: Character[];
+};
+
+export const Chat = ({ characters }: ChatProps) => {
 	const [input, setInput] = useState('');
 	const [messages, setMessages] = useState<ChatMessage[]>([
 		{
@@ -27,7 +32,7 @@ export const Chat = () => {
 		setInput('');
 
 		sendMessageMutation.mutate(
-			{ chatHistory: newMessages, characters: [] }, // TODO characters
+			{ chatHistory: newMessages, characters: characters },
 			{
 				onSuccess: responseMessage => {
 					setMessages(prevMessages => [...prevMessages, responseMessage]);

@@ -33,7 +33,7 @@ export const GameWindow = () => {
 				onCharacterUpdate={setUpdatedCharacters}
 			/>
 
-			<Chat />
+			<Chat characters={characters} />
 
 			<InventoryPanel
 				character={selectedCharacter}
